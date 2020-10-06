@@ -1,4 +1,4 @@
-name: github pages
+name: Deploy to TCB
 
 on:
   push:
@@ -23,10 +23,13 @@ jobs:
       - name: Build
         run: hugo --minify
      
-      - name: FTP-Deploy-Action
-        uses: SamKirkland/FTP-Deploy-Action@3.1.1
+      # Deploy static to Tencent CloudBase
+      - name: Deploy static to Tencent CloudBase
+        id: deployStatic
+        uses: TencentCloudBase/cloudbase-action@v1.1.1
         with:
-          ftp-server: ftp://47.100.41.120:21
-          ftp-username: blog
-          ftp-password: ${{ secrets.FTP_PASSWORD_BLOG }}
-          local-dir: ./public
+          secretId: ${{ secrets.SECRET_ID }}
+          secretKey: ${{ secrets.SECRET_KEY }}
+          envId: ${{ secrets.ENV_ID }}
+          staticSrcPath: public
+          staticDestPath: test
