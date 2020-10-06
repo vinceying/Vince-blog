@@ -1,4 +1,4 @@
-baseurl = "https://blog.vince.pub"
+baseurl = "https://i.vince.pub/test"
 languageCode = "zh-CN"
 theme = "hugo-theme-stack"
 paginate = 5
