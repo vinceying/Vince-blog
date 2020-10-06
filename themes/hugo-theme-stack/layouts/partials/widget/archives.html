@@ -1,0 +1,25 @@
+<section class="widget archives">
+    <div class="widget-icon">
+        {{ (resources.Get "icons/infinity.svg").Content | safeHTML }}
+    </div>
+    <h1 class="widget-title">{{ T "widgetArchivesTitle" }}</h1>
+
+    {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+    {{ $notHidden := where .Site.RegularPages "Params.hidden" "!=" true }}
+    {{ $filtered := ($pages | intersect $notHidden) }}
+    {{ $archives := $filtered.GroupByDate "2006" }}
+
+    {{ range $index, $item := first (add .Site.Params.widgets.archives.limit 1) ($archives) }}
+        {{- $id := lower (replace $item.Key " " "-") -}}
+        <div class="archives-year">
+            <a href="{{ $.Site.Params.widgets.archives.path | relLangURL }}#{{ $id }}">
+                {{ if eq $index $.Site.Params.widgets.archives.limit }}
+                    <span class="year">{{ T "widgetArchivesMore" }}</span>
+                {{ else }}
+                    <span class="year">{{ .Key }}</span>
+                    <span class="count">{{ len $item.Pages }}</span>
+                {{ end }}
+            </a> 
+        </div>
+    {{ end }}
+</section>
