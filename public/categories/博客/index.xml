@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>博客 on Vince</title>
+    <link>https://blog.vince.pub/categories/%E5%8D%9A%E5%AE%A2/</link>
+    <description>Recent content in 博客 on Vince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 06 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.vince.pub/categories/%E5%8D%9A%E5%AE%A2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>从 Fluid 到 Stack</title>
+      <link>https://blog.vince.pub/p/hugo-blog/</link>
+      <pubDate>Tue, 06 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.vince.pub/p/hugo-blog/</guid>
+      <description>此前的博客 我放弃的几点原因：
+ 审美疲劳（人总是会变的） 风格改变 在 V2EX 遇到了 Stack ∞  </description>
+    </item>
+    
+  </channel>
+</rss>

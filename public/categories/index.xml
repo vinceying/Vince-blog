@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Vince</title>
+    <link>https://blog.vince.pub/categories/</link>
+    <description>Recent content in Categories on Vince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 06 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.vince.pub/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>博客</title>
+      <link>https://blog.vince.pub/categories/%E5%8D%9A%E5%AE%A2/</link>
+      <pubDate>Tue, 06 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.vince.pub/categories/%E5%8D%9A%E5%AE%A2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>体验</title>
+      <link>https://blog.vince.pub/categories/%E4%BD%93%E9%AA%8C/</link>
+      <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.vince.pub/categories/%E4%BD%93%E9%AA%8C/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Test</title>
+      <link>https://blog.vince.pub/categories/test/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.vince.pub/categories/test/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

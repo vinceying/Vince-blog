@@ -1,4 +1,4 @@
-baseurl = "https://i.vince.pub/"
+baseurl = "https://blog.vince.pub/"
 languageCode = "zh-CN"
 theme = "hugo-theme-stack"
 paginate = 5
@@ -18,7 +18,7 @@ DefaultContentLanguage = "CN"                   # Theme i18n support
         published = "Jan 02, 2006"
         lastUpdated = "Jan 02, 2006 15:04 MST"
     [params.sidebar]
-        emoji = "🚀"
+        emoji = "🍉"
         avatar = "img/i.jpg"
         subtitle = "做一个开拓者"
     [params.article]
@@ -75,6 +75,12 @@ DefaultContentLanguage = "CN"                   # Theme i18n support
         url = "archives"
         weight = -70
         pre = "archives"
+    [[menu.main]]
+        identifier = "RSS"
+        name = "RSS"
+        url = "index.xml"
+        weight = -10
+        pre = "rss"
 
 [related]
     includeNewer = true
@@ -92,3 +98,8 @@ DefaultContentLanguage = "CN"                   # Theme i18n support
 [markup]
     [markup.highlight]
         noClasses = true
+
+    [markup.goldmark]
+      [markup.goldmark.renderer]
+         unsafe = true
+

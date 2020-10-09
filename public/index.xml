@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Vince</title>
+        <link>https://blog.vince.pub/</link>
+        <description>Recent content on Vince</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-CN</language>
+        <lastBuildDate>Tue, 06 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.vince.pub/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>从 Fluid 到 Stack</title>
+        <link>https://blog.vince.pub/p/hugo-blog/</link>
+        <pubDate>Tue, 06 Oct 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.vince.pub/p/hugo-blog/</guid>
+        <description>&lt;img src="https://blog.vince.pub/p/hugo-blog/gryffyn-m-OdoW3-o62EM-unsplash.jpg" alt="Featured image of post 从 Fluid 到 Stack" /&gt;&lt;h2 id=&#34;此前的博客&#34;&gt;此前的博客&lt;/h2&gt;
+&lt;p&gt;我放弃的几点原因：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;审美疲劳（人总是会变的）&lt;/li&gt;
+&lt;li&gt;风格改变&lt;/li&gt;
+&lt;li&gt;在 V2EX 遇到了 Stack&lt;/li&gt;
+&lt;li&gt;∞&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>Chrome OS 体验与常用环境</title>
+        <link>https://blog.vince.pub/p/my-chromebook/</link>
+        <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://blog.vince.pub/p/my-chromebook/</guid>
+        <description>&lt;img src="https://blog.vince.pub/p/my-chromebook/pixelbook.jpg" alt="Featured image of post Chrome OS 体验与常用环境" /&gt;&lt;p&gt;Chrome OS 体验与常用环境，或许我们应该对它改观（Pixelbook 体验）。由于文字内容过多，本文为原创，直接给出知乎链接，以后的文章应该会更新到本站。
+&lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://zhuanlan.zhihu.com/p/105649401&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;点击这里查看文章&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

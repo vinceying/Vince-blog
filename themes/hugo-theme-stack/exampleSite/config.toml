@@ -14,22 +14,31 @@ DefaultContentLanguage = "en"                   # Theme i18n support
     mainSections = ["post"]
     featuredImageField = "image"
     rssFullContent = true
+    
     [params.dateFormat]
         published = "Jan 02, 2006"
         lastUpdated = "Jan 02, 2006 15:04 MST"
+        
     [params.sidebar]
         emoji = "🍥"
         avatar = "img/avatar.png"
         subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        
     [params.article]
         math = false
         [params.article.license]
             enabled = true 
-            default = "Licenced under CC BY-NC-SA 4.0"
+            default = "Licensed under CC BY-NC-SA 4.0"
+            
     [params.comments]
         enabled = true
-        # Only Disqus is available so far
-        provider = "disqus"
+        provider = "disqus"         # Available: disqus, utterances    
+        [params.comments.utterances]
+            repo = ""
+            issueTerm = "pathname"
+            label = ""             # Optional
+            theme = "preferred-color-scheme"
+            
     [params.widgets]
         enabled = ['archives', 'tag-cloud']
         [params.widgets.archives]
@@ -38,19 +47,13 @@ DefaultContentLanguage = "en"                   # Theme i18n support
             path = "archives"       
         [params.widgets.tagCloud]
             limit = 10
+            
     [params.opengraph]
         [params.opengraph.twitter]
             site = ""
             card = "summary_large_image"
+            
     [params.defaultImage]
-        [params.defaultImage.article]
-            enabled = false
-            local = false
-            src = ""
-        [params.defaultImage.articleList]
-            enabled = false
-            local = true
-            src = ""
         [params.defaultImage.opengraph]
             enabled = false
             local = false

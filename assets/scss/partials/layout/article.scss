@@ -43,7 +43,7 @@
         }
     }
 
-    article {
+    .main-article {
         background: var(--card-background);
         border-radius: var(--card-border-radius);
         box-shadow: var(--shadow-l1);
@@ -80,8 +80,8 @@
         }
 
         .article-footer {
-            padding: var(--card-padding);
-            padding-top: 0;
+            margin: var(--card-padding);
+            margin-top: 0;
 
             section:not(:first-child) {
                 margin-top: var(--card-padding);
