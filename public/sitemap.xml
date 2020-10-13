@@ -53,6 +53,76 @@
   </url>
   
   <url>
+    <loc>https://blog.vince.pub/tags/static/</loc>
+    <lastmod>2020-07-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.vince.pub/p/blog-thinking/</loc>
+    <lastmod>2020-07-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.vince.pub/tags/%E5%81%A5%E5%BA%B7/</loc>
+    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.vince.pub/p/health-condtion/</loc>
+    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.vince.pub/categories/%E6%97%A5%E5%B8%B8/</loc>
+    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.vince.pub/tags/hexo/</loc>
+    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.vince.pub/p/hexo-static/</loc>
+    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.vince.pub/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.vince.pub/tags/fluid/</loc>
+    <lastmod>2020-05-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.vince.pub/p/fluid-write/</loc>
+    <lastmod>2020-05-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.vince.pub/p/hexo-action-tencentcloudbase/</loc>
+    <lastmod>2020-05-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.vince.pub/p/fluid-doc-pr/</loc>
+    <lastmod>2020-04-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.vince.pub/tags/wearable/</loc>
+    <lastmod>2020-04-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.vince.pub/p/smart-watch/</loc>
+    <lastmod>2020-04-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.vince.pub/p/my-chromebook/</loc>
     <lastmod>2020-04-05T00:00:00+00:00</lastmod>
   </url>
@@ -73,6 +143,21 @@
   </url>
   
   <url>
+    <loc>https://blog.vince.pub/tags/cloud-studio/</loc>
+    <lastmod>2019-07-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.vince.pub/tags/wordpress/</loc>
+    <lastmod>2019-07-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.vince.pub/p/cloud-studio-static/</loc>
+    <lastmod>2019-07-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.vince.pub/archives/</loc>
     <lastmod>2019-05-28T00:00:00+00:00</lastmod>
   </url>
@@ -83,10 +168,6 @@
   
   <url>
     <loc>https://blog.vince.pub/links/</loc>
-  </url>
-  
-  <url>
-    <loc>https://blog.vince.pub/categories/test/</loc>
   </url>
   
 </urlset>

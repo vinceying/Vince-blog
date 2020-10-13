@@ -20,7 +20,7 @@ DefaultContentLanguage = "CN"                   # Theme i18n support
     [params.sidebar]
         emoji = "🍉"
         avatar = "img/i.jpg"
-        subtitle = "做一个开拓者"
+        subtitle = "five 养成计划"
     [params.article]
         math = false
         [params.article.license]
