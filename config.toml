@@ -81,6 +81,12 @@ DefaultContentLanguage = "CN"                   # Theme i18n support
         url = "index.xml"
         weight = -10
         pre = "rss"
+    [[menu.main]]
+        identifier = "Legacy"
+        name = "Legacy"
+        url = "https://old.vince.pub/"
+        weight = -5
+        pre = "arrow-back"
 
 [related]
     includeNewer = true
