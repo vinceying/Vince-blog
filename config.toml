@@ -25,13 +25,13 @@ DefaultContentLanguage = "CN"                   # Theme i18n support
         math = false
         [params.article.license]
             enabled = true 
-            default = "Licenced under CC BY-NC-SA 4.0"
+            default = "Licensed under CC BY-NC-SA 4.0"
     [params.comments]
         enabled = true
         # Only Disqus is available so far
         provider = "gitalk"
     [params.widgets]
-        enabled = ['archives', 'tag-cloud']
+        enabled = ['search', 'archives', 'tag-cloud']
         [params.widgets.archives]
             limit = 5
             ### Archives page relative URL
@@ -88,6 +88,13 @@ DefaultContentLanguage = "CN"                   # Theme i18n support
         weight = -5
         pre = "arrow-back"
 
+    [[menu.main]]
+        identifier = "search"
+        name = "Search"
+        url = "search"
+        weight = -60
+        pre = "search"
+    
 [related]
     includeNewer = true
     threshold = 60

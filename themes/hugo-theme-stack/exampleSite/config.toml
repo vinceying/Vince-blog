@@ -40,7 +40,7 @@ DefaultContentLanguage = "en"                   # Theme i18n support
             theme = "preferred-color-scheme"
             
     [params.widgets]
-        enabled = ['archives', 'tag-cloud']
+        enabled = ['search', 'archives', 'tag-cloud']
         [params.widgets.archives]
             limit = 5
             ### Archives page relative URL
@@ -78,7 +78,6 @@ DefaultContentLanguage = "en"                   # Theme i18n support
         url = "archives"
         weight = -70
         pre = "archives"
-
 [related]
     includeNewer = true
     threshold = 60
