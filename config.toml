@@ -1,10 +1,10 @@
-baseurl = "https://i.vince.pub/"
+baseurl = "https://i.vince.pub"
 languageCode = "zh-CN"
 theme = "hugo-theme-stack"
 paginate = 5
 title = "Vince"
 disqusShortname = "hugo-theme-stack"            # Change it to your Disqus shortname before using
-DefaultContentLanguage = "CN"                   # Theme i18n support
+DefaultContentLanguage = "en"                   # Theme i18n support
 
 [permalinks]
     post = "/p/:slug/"
@@ -14,22 +14,31 @@ DefaultContentLanguage = "CN"                   # Theme i18n support
     mainSections = ["post"]
     featuredImageField = "image"
     rssFullContent = true
+    
     [params.dateFormat]
         published = "Jan 02, 2006"
         lastUpdated = "Jan 02, 2006 15:04 MST"
+        
     [params.sidebar]
         emoji = "🍉"
         avatar = "img/i.jpg"
         subtitle = "five 养成计划"
+        
     [params.article]
-        math = false
+        math = true
         [params.article.license]
             enabled = true 
             default = "Licensed under CC BY-NC-SA 4.0"
+            
     [params.comments]
         enabled = true
-        # Only Disqus is available so far
-        provider = "gitalk"
+        provider = "gitalk"         # Available: disqus, utterances    
+        [params.comments.utterances]
+            repo = ""
+            issueTerm = "pathname"
+            label = ""             # Optional
+            theme = "preferred-color-scheme"
+            
     [params.widgets]
         enabled = ['search', 'archives', 'tag-cloud']
         [params.widgets.archives]
@@ -38,19 +47,13 @@ DefaultContentLanguage = "CN"                   # Theme i18n support
             path = "archives"       
         [params.widgets.tagCloud]
             limit = 10
+            
     [params.opengraph]
         [params.opengraph.twitter]
             site = ""
             card = "summary_large_image"
+            
     [params.defaultImage]
-        [params.defaultImage.article]
-            enabled = false
-            local = false
-            src = ""
-        [params.defaultImage.articleList]
-            enabled = false
-            local = true
-            src = ""
         [params.defaultImage.opengraph]
             enabled = false
             local = false
@@ -76,11 +79,11 @@ DefaultContentLanguage = "CN"                   # Theme i18n support
         weight = -70
         pre = "archives"
     [[menu.main]]
-        identifier = "RSS"
-        name = "RSS"
-        url = "index.xml"
-        weight = -10
-        pre = "rss"
+        identifier = "search"
+        name = "Search"
+        url = "search"
+        weight = -60
+        pre = "search"
     [[menu.main]]
         identifier = "Legacy"
         name = "Legacy"
@@ -88,13 +91,6 @@ DefaultContentLanguage = "CN"                   # Theme i18n support
         weight = -5
         pre = "arrow-back"
 
-    [[menu.main]]
-        identifier = "search"
-        name = "Search"
-        url = "search"
-        weight = -60
-        pre = "search"
-    
 [related]
     includeNewer = true
     threshold = 60
@@ -115,4 +111,6 @@ DefaultContentLanguage = "CN"                   # Theme i18n support
     [markup.goldmark]
       [markup.goldmark.renderer]
          unsafe = true
+
+
 
