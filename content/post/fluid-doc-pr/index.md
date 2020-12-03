@@ -3,7 +3,7 @@ title: Fluid 文档相关 PR 内容原稿
 description: 本篇记录在 Fluid 文档中自己 PR 的内容原稿，持续更新中。
 date: 2020-04-22
 slug: fluid-doc-pr
-image: fluid-doc-pr.jpg
+image: fluid-doc.jpg
 categories:
     - 技术
 tags:
