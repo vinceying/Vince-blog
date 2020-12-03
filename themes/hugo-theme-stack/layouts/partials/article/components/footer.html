@@ -8,6 +8,13 @@
     </section>
     {{ end }}
 
+    {{ if and (.Site.Params.article.edit.enabled) (not (eq .Params.edit false)) }}
+    <section class="article-edit">
+        {{ partial "helper/icon" "edit" }}
+        <span><a href="https://github.com/vinceying/Vince-blog/edit/main/content/{{ replace .File.Path "\\" "/" }}" target="_blank">Edit this post</a></span>
+    </section>
+    {{ end }}
+
     {{- if ne .Lastmod .Date -}}
     <section class="article-time">
         {{ partial "helper/icon" "clock" }}

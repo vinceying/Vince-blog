@@ -1,11 +1,9 @@
-+++
-title = "About"
-date = "2020-10-06"
-aliases = ["about-us", "about-hugo", "contact"]
-author = "Vince"
-license = "CC BY-NC-ND"
-comments = "false"
-+++
+---
+title: About
+edit: false
+comments: false
+---
+
 
 ## 我（five)
 

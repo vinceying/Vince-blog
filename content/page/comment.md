@@ -5,6 +5,7 @@ menu:
         name: Comment
         pre: messages
         weight: -70
+edit: false
 ---
 # 欢迎留言
 

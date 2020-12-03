@@ -29,6 +29,8 @@ DefaultContentLanguage = "en"                   # Theme i18n support
         [params.article.license]
             enabled = true 
             default = "Licensed under CC BY-NC-SA 4.0"
+        [params.article.edit]
+            enabled = true
             
     [params.comments]
         enabled = true
