@@ -1,8 +1,8 @@
-baseurl: https://i.vince.pub
+baseurl: https://example.com
 languageCode: en-us
 theme: hugo-theme-stack
 paginate: 5
-title: Vince
+title: Example Site
 
 # Change it to your Disqus shortname before using
 disqusShortname: hugo-theme-stack
@@ -31,23 +31,21 @@ params:
         lastUpdated: Jan 02, 2006 15:04 MST
 
     sidebar:
-        emoji: 🍉
-        subtitle: five 养成计划
+        emoji: 🍥
+        subtitle: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         avatar:
             local: true
-            src: img/i.jpg
+            src: img/avatar.png
 
     article:
         math: false
-        edit:
-            enabled: true
         license:
             enabled: true
             default: Licensed under CC BY-NC-SA 4.0
 
     comments:
         enabled: true
-        provider: gitalk
+        provider: disqus
         utterances:
             repo:
             issueTerm: pathname
@@ -120,12 +118,6 @@ menu:
           weight: -60
           pre: search
 
-        - identifier: legacy
-          name: Legacy
-          url: https://old.vince.pub/
-          weight: -50
-          pre: arrow-back
-
 related:
     includeNewer: true
     threshold: 60
@@ -139,4 +131,4 @@ related:
 
 markup:
     highlight:
-        noClasses: true
+        noClasses: false
