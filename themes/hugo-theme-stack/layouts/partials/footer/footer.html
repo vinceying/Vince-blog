@@ -1,5 +1,13 @@
+{{- $ThemeVersion := "2.0.0" -}}
 <footer class="site-footer">
-    <section class="copyright">&copy; {{ now.Format "2006" }} {{ .Site.Title }}</section>
+    <section class="copyright">
+        &copy; 
+        {{ if and (.Site.Params.footer.since) (ne .Site.Params.footer.since (int (now.Format "2006"))) }}
+            {{ .Site.Params.footer.since }} - 
+        {{ end }}
+        {{ now.Format "2006" }} {{ .Site.Title }}
+    </section>
+    
     <section class="powerby">
         Built with <b><a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a></b>, Theme by <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="1.1.0">Stack</a></b>.</br>
         <a href="https://github.com/vinceying" target="_blank" rel="noopener"><i class="iconfont icon-git" aria-hidden="true"></i>&nbsp&nbsp&nbsp</a>
