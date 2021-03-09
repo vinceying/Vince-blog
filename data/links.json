@@ -38,5 +38,10 @@
         "title": "Pxxyyz",
         "website": "https://pxxyyz.com/",
         "image": "pxxyyz.png"
+    },
+    {
+        "title": "罐头盒",
+        "website": "https://hacbox.me/",
+        "image": "hacbox.png"
     }
 ]
