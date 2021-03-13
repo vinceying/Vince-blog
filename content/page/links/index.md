@@ -10,7 +10,7 @@ menu:
         weight: -60
 license: false
 edit: false
-image: https://file.vince.pub/blog-file/photo/note/debug.png
+image: https://cdn.vince.pub/blog-file/photo/note/debug.png
 ---
 
 ## 我的朋友们
