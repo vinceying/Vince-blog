@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>技术 on Vince</title>
+    <link>https://i.vince.pub/categories/%E6%8A%80%E6%9C%AF/</link>
+    <description>Recent content in 技术 on Vince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 06 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://i.vince.pub/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cloudflare Pages 试用及速度对比，以克隆 hexo-fluid-theme 官方博客为例</title>
+      <link>https://i.vince.pub/p/cloudflare-pages-test/</link>
+      <pubDate>Sat, 06 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://i.vince.pub/p/cloudflare-pages-test/</guid>
+      <description>概述 从看到相关产品新闻后，还是非常期待这个产品的。我在去年12月订阅了 Cloudflare Pages 的相关消息，一直等到今天凌晨在接到了可以开始测试使用的邮件。相比与 Vercel 和 Netlify 等同类产品来说，Cloudflare Pages 的最多优势在于节点。在此之前，我相信很多就接触或者使用过 Cloudflare 的全球加速服务了。值得一提的是，相对来说 Cloudflare 的大陆节点确实还不少。
+总结了一下，总共有以下几点特性，应该也算是该有的基本功能。团队协作，可以邀请加入 Cloudflare 帐户，以协作处理所有项目。快速构建，我们最常用到的 Git 集成，这也与版本管理相关联。目前已经支持大部分的框架和工具，具体可以 相关文档。最重要的是，提供的免费服务也足够我们的使用。
+ 团队协作 快速构建 版本管理 免费高速  试用和对比    
+我们以克隆 Hexo Theme Fluid 官方博客来进行对比和试用。首先 Fork 仓库，官方博客使用 dogedoge 提供的图床，本来是想再做一个分支，做图片本地化及评论和统计的同步，但是太懒了。这里我们就不作修改的直接对比了，构建过程非常简单，hexo 和 hugo 这类的相关软件太普遍了，都有模板。
+ Cloudflare Pages   官方使用的 OSS 
+随便找了一个网站测速工具，从上图可以看出，Cloudflare Pages 在大陆下的访问速度还是比较快的，当然，实际情况还是可以自己对比的，另外，可能影响到的因素还有评论服务和访问统计。
+ 官网站：https://hexo.fluid-dev.com/ 克隆站：https://hexo-fluid-blog.pages.dev/  - name: Upload to OSS env: OSS_AccessKeyID: ${{ secrets.OSS_AccessKeyID }} OSS_AccessKeySecret: ${{ secrets.</description>
+    </item>
+    
+    <item>
+      <title>最简单的内网穿透，Zerotier 试用</title>
+      <link>https://i.vince.pub/p/zerotier/</link>
+      <pubDate>Fri, 18 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://i.vince.pub/p/zerotier/</guid>
+      <description>前言 这里不得不吐槽一下学校，把一些仪器和教务管理系统设置在内网，必需通过校园网的环境下才能访问，然后无线网覆盖范围和信号状态及其虚拟专用网客户端长期不更新。之前有提到过，在宿舍购置了一台路由器，运行的是 OpenWrt。在宿舍中的路由器是可以访问校园网的，决定使用内网穿透解决这个问题。另外，深有体会，越好的大学信息服务越好,没有高考的同学加油。
+校园网，我选择从路由器出手2020-10-21#校园网&amp;nbsp;#路由器&amp;nbsp;无言以对的校园网政策 众所周知，某些学校的校园网完全就是一个商业项目，对使用有十分大的限制。比如我所在的学校，只运行一台设备在线，WLAN 和 LAN 需要选择一个，不能混用账号。然而，经过实测校园网分配给每个用户的物理带宽早就超过了百兆，足以够一个小型家庭使用，何况是一个宿舍。学校的这种做法无非是恰X钱。入学开始我就开始了对校园网的探索，起初的想法是路由器模拟设备镜像认证，因为有前人栽树的缘故，一切都进行的比较顺利。 对认证方式的分析 初探 初次登录，未进行认证的设备会重定向到登录界面，通过查看源代码，这不就是 Ruijie WEB Portal 接入认证。我觉得先到 Github 找一下例子，梳理一些思路。当我在 Github 搜索 Ruijie Portal 时，一个叫 RuijiePortalLoginTool 的项目让我发现，一切似乎都变的简单起来了。 实现原理 构造的关键便是这步，去年的时候我一直以为 Ruijie 会将主程序升级，然而我发现，像我校这种**，会一直为认证服务器使用出厂版本。 #Structure loginURL loginURL=`echo $loginPageURL | awk -F \? &amp;amp;#39;{print $1}&amp;amp;#39;` loginURL=&amp;amp;#34;${loginURL/index.jsp/InterFace.do?method=login}&amp;amp;#34; #Structure quertString queryString=`echo $loginPageURL | awk -F \? &amp;amp;#39;{print $2}&amp;amp;#39;` queryString=&amp;amp;#34;${queryString//&amp;amp;amp;/%2526}&amp;amp;#34; queryString=&amp;amp;#34;${queryString//=/%253D}&amp;amp;#34; #Send Ruijie eportal auth request and output result if [ -n &amp;amp;#34;$loginURL&amp;amp;#34; ]; then authResult=`curl -s -A &amp;amp;#34;Mozilla/5.</description>
+    </item>
+    
+    <item>
+      <title>校园网，我选择从路由器出手</title>
+      <link>https://i.vince.pub/p/ruijie-router/</link>
+      <pubDate>Wed, 21 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://i.vince.pub/p/ruijie-router/</guid>
+      <description>无言以对的校园网政策 众所周知，某些学校的校园网完全就是一个商业项目，对使用有十分大的限制。比如我所在的学校，只运行一台设备在线，WLAN 和 LAN 需要选择一个，不能混用账号。然而，经过实测校园网分配给每个用户的物理带宽早就超过了百兆，足以够一个小型家庭使用，何况是一个宿舍。学校的这种做法无非是恰X钱。入学开始我就开始了对校园网的探索，起初的想法是路由器模拟设备镜像认证，因为有前人栽树的缘故，一切都进行的比较顺利。
+对认证方式的分析 初探 初次登录，未进行认证的设备会重定向到登录界面，通过查看源代码，这不就是 Ruijie WEB Portal 接入认证。我觉得先到 Github 找一下例子，梳理一些思路。当我在 Github 搜索 Ruijie Portal 时，一个叫 RuijiePortalLoginTool 的项目让我发现，一切似乎都变的简单起来了。
+实现原理  
+构造的关键便是这步，去年的时候我一直以为 Ruijie 会将主程序升级，然而我发现，像我校这种**，会一直为认证服务器使用出厂版本。
+#Structure loginURL loginURL=`echo $loginPageURL | awk -F \? &amp;#39;{print $1}&amp;#39;` loginURL=&amp;#34;${loginURL/index.jsp/InterFace.do?method=login}&amp;#34; #Structure quertString queryString=`echo $loginPageURL | awk -F \? &amp;#39;{print $2}&amp;#39;` queryString=&amp;#34;${queryString//&amp;amp;/%2526}&amp;#34; queryString=&amp;#34;${queryString//=/%253D}&amp;#34; #Send Ruijie eportal auth request and output result if [ -n &amp;#34;$loginURL&amp;#34; ]; then authResult=`curl -s -A &amp;#34;Mozilla/5.0 (Windows NT 10.</description>
+    </item>
+    
+    <item>
+      <title>常见静态网站托管平台使用及多节点部署方案</title>
+      <link>https://i.vince.pub/p/hexo-static/</link>
+      <pubDate>Tue, 26 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://i.vince.pub/p/hexo-static/</guid>
+      <description>前言 对于 Hexo 来说，我们使用它来部署博客是因为无后端运维和高速渲染页面等优点。选择一个合适的托管平台对于博客来说十分重要，可以免费使用且稳定高速的平台是不存在的，我们总是需要做出妥协。我使用了 Github Pages、Coding Pages、Gitee Pages、Netlify 和 Vercel 来部署博客，以下为我的使用报告。
+常见托管平台 Github Pages 使用体验：可以与仓库无缝对接，高效部署，但是没用设置国内节点，在国内访问速度较慢，作为一个海外节点还是非常不错的。相对而言，使用 jsdelivr 来加速网站相关文件可以满足基本使用。查看 Github Status，Pages 服务会出现偶尔挂掉的情况，但多数仓库文档、演示等都选择了 Github Pages 服务。
+使用及扩展：提供二级域名，支持域名绑定及免费 SSL 证书。网站内容与仓库保存一致，自动推送。通过使用 Github Actions 具有较强扩展性。
+Netlify 使用体验：Netlify 的节点设置在海外，但 Netlify 的服务速度尚可，国内部分地区可以到达高速服务。在使用 CDN 的情况下，把网站部署在 Netlify 是可以比较好的选择。Vuejs 和 Hexo 的官网都部署在 Netlify 上，其稳定性可想而知。Netlify 虽然拥有付费功能，但是基本上我们需要使用到的服务都免费。
+使用及扩展：提供二级域名，支持域名绑定及免费 SSL 证书。Netlify 支持 Github 或者 Gitlab 等账号登录，如果仓库已经是静态网站文件，每次 Push 到仓库 Netlify 都会自动部署。支持 Build Command，源文件也可以通过提供的环境自动编译或渲染，类似于一款 CI，与 Github Pages 功能相近。
+Vercel 使用体验：Vercel 的体验情况总体和 Netlify 相近，节点设置在海外，访问速度尚可。前身是 now.sh，作为一个高质量的静态托管平台，Vercel的使用体验非常好，是一个可选的优秀平台。
+使用及扩展：提供二级域名，支持域名绑定及免费 SSL 证书。支持 Github 或者 Gitlab 等账号登录，如果仓库已经是静态网站文件，每次 Push 到仓库都会自动部署。Vercel 打出了 free forever 的口号，也就是说在非商用的情况下，个人可以永久免费使用。支持设置环境并执行相关命令，自动部署不在话下。</description>
+    </item>
+    
+    <item>
+      <title>Hexo-Action-TencentCloudBase</title>
+      <link>https://i.vince.pub/p/hexo-action-tencentcloudbase/</link>
+      <pubDate>Mon, 11 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://i.vince.pub/p/hexo-action-tencentcloudbase/</guid>
+      <description>Hexo-Action-TencentCloudBase 通过 Github Actions，使用 Hexo-Action-TencentCloudBase 可以将 Hexo 的源文件部署并推送到 Tencent CloudBase 的静态托管中。
+🚀 使用 由于 Github Pages 在国内的访问速度，可以使用 Tencent CloudBase 来托管相关静态网页。Hexo-Action-TencentCloudBase 可以通过 Github Actions 将 Hexo 的源文件推送到Tencent CloudBase 的静态托管中。显目地址：Hexo-Action-TencentCloudBase
+在仓库中添加 Repo/.github/workflows/tencent.yml ，相关文件即可。更多关于 Github Actions ，请点击这里查看。
+🔐 腾讯云相关输入内容 在项目的 secret 添加 ENV_ID SECRET_ID SECRET_KEY 相关字段。
+SECRET_ID # Required 云开发的访问密钥 secretId
+SECRET_KEY # Required 云开发的访问密钥 secretKey
+ENV_ID # Required 云开发的环境 id envId
+✔ 使用内容及灵感来源 实例
+cloudbase-action
+action-hexo</description>
+    </item>
+    
+    <item>
+      <title>Fluid 文档相关 PR 内容原稿</title>
+      <link>https://i.vince.pub/p/fluid-doc-pr/</link>
+      <pubDate>Wed, 22 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://i.vince.pub/p/fluid-doc-pr/</guid>
+      <description>前言 本篇记录在 Fluid 文档中自己 PR 的内容原稿，持续更新中。
+在 Fluid 使用更多图标的详细过程 说明 Fluid 在2020/4/5之前的版本使用的图标库是 FontAwesome，在之后的版本使用 Iconfont。相对而言，Iconfont 更适合我们的使用习惯，但是在 Iconfont 中，没用相关图标库项目共享功能，且主题作者也不能内置全部图标，只内置了部分社交图标，不过据了解，后续会更新更多图标。这篇帖子主要介绍如何引入更多图标，另外内容已经 PR 到 Fluid Doc 中。
+关于 font-class 引用 主题图标使用 font-class 引用，font-class 是 unicode 使用方式的一种变种，比起 unicode 更加便捷和直观。iconfont 支持在线引用和本地引用。以下内容基于 font-class 引用。
+本地应用 首先需要获取图标的 CSS 文件，将文件放到主题目录 &amp;lsquo;source/css&amp;rsquo; 中，在主题配置文件 custom_css 项中添加 CSS 文件路径。
+实例
+custom_css: /css/custom.css在相关文件、页面，将 icon- 开头的那行填入 css class 即可。比如： iconfont icon-email 。
+Iconfont 在线引用 Iconfont支持用户创建项目来管理和使用图标库，在 图标管理-我的项目 中即可管理和创建项目。将所需图标添加至购物车，再通过购物车添加至所创建的项目中。在项目中可以下载至本地与生成在线链接，Iconfont 支持在阿里云的 CDN 中生成 CSS 或 JS 文件用来调用。</description>
+    </item>
+    
+    <item>
+      <title>个人免费建站，使用 Cloud Studio 建立个人博客</title>
+      <link>https://i.vince.pub/p/cloud-studio-static/</link>
+      <pubDate>Fri, 05 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://i.vince.pub/p/cloud-studio-static/</guid>
+      <description>由于文字内容过多，不便发布在这里，文章为原创，直接给出知乎链接，以后的文章会更新到本站。（由于 Cloud Studio 已经升级，该方法可能已经失效) 点击这里查看文章</description>
+    </item>
+    
+  </channel>
+</rss>

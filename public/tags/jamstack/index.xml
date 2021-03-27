@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JAMStack on Vince</title>
+    <link>https://i.vince.pub/tags/jamstack/</link>
+    <description>Recent content in JAMStack on Vince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 06 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://i.vince.pub/tags/jamstack/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cloudflare Pages 试用及速度对比，以克隆 hexo-fluid-theme 官方博客为例</title>
+      <link>https://i.vince.pub/p/cloudflare-pages-test/</link>
+      <pubDate>Sat, 06 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://i.vince.pub/p/cloudflare-pages-test/</guid>
+      <description>概述 从看到相关产品新闻后，还是非常期待这个产品的。我在去年12月订阅了 Cloudflare Pages 的相关消息，一直等到今天凌晨在接到了可以开始测试使用的邮件。相比与 Vercel 和 Netlify 等同类产品来说，Cloudflare Pages 的最多优势在于节点。在此之前，我相信很多就接触或者使用过 Cloudflare 的全球加速服务了。值得一提的是，相对来说 Cloudflare 的大陆节点确实还不少。
+总结了一下，总共有以下几点特性，应该也算是该有的基本功能。团队协作，可以邀请加入 Cloudflare 帐户，以协作处理所有项目。快速构建，我们最常用到的 Git 集成，这也与版本管理相关联。目前已经支持大部分的框架和工具，具体可以 相关文档。最重要的是，提供的免费服务也足够我们的使用。
+ 团队协作 快速构建 版本管理 免费高速  试用和对比    
+我们以克隆 Hexo Theme Fluid 官方博客来进行对比和试用。首先 Fork 仓库，官方博客使用 dogedoge 提供的图床，本来是想再做一个分支，做图片本地化及评论和统计的同步，但是太懒了。这里我们就不作修改的直接对比了，构建过程非常简单，hexo 和 hugo 这类的相关软件太普遍了，都有模板。
+ Cloudflare Pages   官方使用的 OSS 
+随便找了一个网站测速工具，从上图可以看出，Cloudflare Pages 在大陆下的访问速度还是比较快的，当然，实际情况还是可以自己对比的，另外，可能影响到的因素还有评论服务和访问统计。
+ 官网站：https://hexo.fluid-dev.com/ 克隆站：https://hexo-fluid-blog.pages.dev/  - name: Upload to OSS env: OSS_AccessKeyID: ${{ secrets.OSS_AccessKeyID }} OSS_AccessKeySecret: ${{ secrets.</description>
+    </item>
+    
+  </channel>
+</rss>

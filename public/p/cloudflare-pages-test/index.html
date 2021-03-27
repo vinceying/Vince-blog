@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Cloudflare Pages Beta 终于上线，这或许是一个新的选择。'><title>Cloudflare Pages 试用及速度对比，以克隆 hexo-fluid-theme 官方博客为例</title>
+
+<link rel='canonical' href='https://i.vince.pub/p/cloudflare-pages-test/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Cloudflare Pages 试用及速度对比，以克隆 hexo-fluid-theme 官方博客为例'>
+<meta property='og:description' content='Cloudflare Pages Beta 终于上线，这或许是一个新的选择。'>
+<meta property='og:url' content='https://i.vince.pub/p/cloudflare-pages-test/'>
+<meta property='og:site_name' content='Vince'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='cloudflare' /><meta property='article:tag' content='JAMStack' /><meta property='article:published_time' content='2021-03-06T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-03-06T00:00:00&#43;00:00'/><meta property='og:image' content='https://i.vince.pub/p/cloudflare-pages-test/Cloudflare%20Pages_hero.png' />
+<meta name="twitter:title" content="Cloudflare Pages 试用及速度对比，以克隆 hexo-fluid-theme 官方博客为例">
+<meta name="twitter:description" content="Cloudflare Pages Beta 终于上线，这或许是一个新的选择。"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://i.vince.pub/p/cloudflare-pages-test/Cloudflare%20Pages_hero.png' /><link rel="stylesheet" href="//at.alicdn.com/t/font_1744971_dbtmro899q7.css">
+<link rel="icon" type="image/png" href="https://cdn.vince.pub/static/layout.png">
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?6b11514a3e84903117ff81f55a5f9632";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/i_hu1f2350276bec84b9b06dd793b76e5959_39690_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+                    <span class="emoji">🍉</span>
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://i.vince.pub">Vince</a></h1>
+        <h2 class="site-description">five 养成计划</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/comment/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" />
+  <path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" />
+</svg>
+
+
+
+                
+                <span>Comment</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/links/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='https://old.vince.pub/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-back" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" />
+</svg>
+
+
+
+                
+                <span>Legacy</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>Dark Mode</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://i.vince.pub" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/cloudflare-pages-test/">
+                <img src="/p/cloudflare-pages-test/Cloudflare%20Pages_hero_hu475ec0b523fd8d45b2908a27ed86d393_44413_800x0_resize_box_2.png"
+                        srcset="/p/cloudflare-pages-test/Cloudflare%20Pages_hero_hu475ec0b523fd8d45b2908a27ed86d393_44413_800x0_resize_box_2.png 800w, /p/cloudflare-pages-test/Cloudflare%20Pages_hero_hu475ec0b523fd8d45b2908a27ed86d393_44413_1600x0_resize_box_2.png 1600w"
+                        width="800" 
+                        height="415" 
+                        loading="lazy"
+                        alt="Featured image of post Cloudflare Pages 试用及速度对比，以克隆 hexo-fluid-theme 官方博客为例" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E6%8A%80%E6%9C%AF/" >
+                技术
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/cloudflare-pages-test/">Cloudflare Pages 试用及速度对比，以克隆 hexo-fluid-theme 官方博客为例</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        Cloudflare Pages Beta 终于上线，这或许是一个新的选择。
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Mar 06, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="概述">概述</h2>
+<p>从看到相关产品新闻后，还是非常期待这个产品的。我在去年12月订阅了 Cloudflare Pages 的相关消息，一直等到今天凌晨在接到了可以开始测试使用的邮件。相比与 Vercel 和 Netlify 等同类产品来说，Cloudflare Pages 的最多优势在于节点。在此之前，我相信很多就接触或者使用过 Cloudflare 的全球加速服务了。值得一提的是，相对来说 Cloudflare 的大陆节点确实还不少。</p>
+<p>总结了一下，总共有以下几点特性，应该也算是该有的基本功能。团队协作，可以邀请加入 Cloudflare 帐户，以协作处理所有项目。快速构建，我们最常用到的 Git 集成，这也与版本管理相关联。目前已经支持大部分的框架和工具，具体可以 <a class="link" href="https://developers.cloudflare.com/pages/platform/build-configuration"  target="_blank" rel="noopener"
+    >相关文档</a>。最重要的是，提供的免费服务也足够我们的使用。</p>
+<ul>
+<li>团队协作</li>
+<li>快速构建</li>
+<li>版本管理</li>
+<li>免费高速</li>
+</ul>
+<h2 id="试用和对比">试用和对比</h2>
+<p><figure style="flex-grow: 168; flex-basis: 404px">
+		<a href="/p/cloudflare-pages-test/2021-03-06140812.png" data-size="1657x982"><img src="/p/cloudflare-pages-test/2021-03-06140812.png"
+				srcset="/p/cloudflare-pages-test/2021-03-06140812_hu0922e596e40d02197b7f51215122a065_447865_480x0_resize_box_2.png 480w, /p/cloudflare-pages-test/2021-03-06140812_hu0922e596e40d02197b7f51215122a065_447865_1024x0_resize_box_2.png 1024w"
+				width="1657"
+				height="982"
+				loading="lazy"
+				>
+		</a>
+		
+	</figure> <figure style="flex-grow: 170; flex-basis: 409px">
+		<a href="/p/cloudflare-pages-test/2021-03-06142402.png" data-size="1663x975"><img src="/p/cloudflare-pages-test/2021-03-06142402.png"
+				srcset="/p/cloudflare-pages-test/2021-03-06142402_huc7d888bbf54b14c86b713461efebedbc_335553_480x0_resize_box_2.png 480w, /p/cloudflare-pages-test/2021-03-06142402_huc7d888bbf54b14c86b713461efebedbc_335553_1024x0_resize_box_2.png 1024w"
+				width="1663"
+				height="975"
+				loading="lazy"
+				>
+		</a>
+		
+	</figure></p>
+<p>我们以克隆 Hexo Theme Fluid 官方博客来进行对比和试用。首先 Fork 仓库，官方博客使用 dogedoge 提供的图床，本来是想再做一个分支，做图片本地化及评论和统计的同步，但是太懒了。这里我们就不作修改的直接对比了，构建过程非常简单，hexo 和 hugo 这类的相关软件太普遍了，都有模板。</p>
+<p><figure style="flex-grow: 142; flex-basis: 342px">
+		<a href="/p/cloudflare-pages-test/20210306144342.png" data-size="1023x717"><img src="/p/cloudflare-pages-test/20210306144342.png"
+				srcset="/p/cloudflare-pages-test/20210306144342_hu6ee29af08f7b418a79d2a398ce6b0a23_101440_480x0_resize_box_2.png 480w, /p/cloudflare-pages-test/20210306144342_hu6ee29af08f7b418a79d2a398ce6b0a23_101440_1024x0_resize_box_2.png 1024w"
+				width="1023"
+				height="717"
+				loading="lazy"
+				alt="Cloudflare Pages">
+		</a>
+		
+		<figcaption>Cloudflare Pages</figcaption>
+		
+	</figure> <figure style="flex-grow: 136; flex-basis: 328px">
+		<a href="/p/cloudflare-pages-test/20210306144443.png" data-size="1020x745"><img src="/p/cloudflare-pages-test/20210306144443.png"
+				srcset="/p/cloudflare-pages-test/20210306144443_hucb016278309f2dbb527c1a8fe66d90d8_102307_480x0_resize_box_2.png 480w, /p/cloudflare-pages-test/20210306144443_hucb016278309f2dbb527c1a8fe66d90d8_102307_1024x0_resize_box_2.png 1024w"
+				width="1020"
+				height="745"
+				loading="lazy"
+				alt="官方使用的 OSS">
+		</a>
+		
+		<figcaption>官方使用的 OSS</figcaption>
+		
+	</figure></p>
+<p>随便找了一个网站测速工具，从上图可以看出，Cloudflare Pages 在大陆下的访问速度还是比较快的，当然，实际情况还是可以自己对比的，<strong>另外，可能影响到的因素还有评论服务和访问统计。</strong></p>
+<ul>
+<li>官网站：https://hexo.fluid-dev.com/</li>
+<li>克隆站：https://hexo-fluid-blog.pages.dev/</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">- name: Upload to OSS
+    env:
+    OSS_AccessKeyID: <span style="color:#e6db74">${</span>{ secrets.OSS_AccessKeyID <span style="color:#e6db74">}</span><span style="color:#f92672">}</span>
+    OSS_AccessKeySecret: <span style="color:#e6db74">${</span>{ secrets.OSS_AccessKeySecret <span style="color:#e6db74">}</span><span style="color:#f92672">}</span>
+    run: |
+        wget -q http://gosspublic.alicdn.com/ossutil/1.6.10/ossutil64
+        chmod +x ./ossutil64
+        ./ossutil64 config -e oss-ap-southeast-1.aliyuncs.com -i $OSS_AccessKeyID -k $OSS_AccessKeySecret -L CH
+        ./ossutil64 cp -r -f oss://fluid-dev/docs ./public/
+        ./ossutil64 rm -r -f oss://fluid-dev/
+        ./ossutil64 cp -r -f ./public oss://fluid-dev/
+</code></pre></div><p>另外，从 hexo-fluid-theme 仓库的 Github Actions 代码可以看出，官方博客部署的阿里云 OSS 上，Ping 一下，主要有香港和美国两个节点。</p>
+<h2 id="节点">节点</h2>
+<p><figure style="flex-grow: 216; flex-basis: 519px">
+		<a href="/p/cloudflare-pages-test/20210306165536.png" data-size="1371x633"><img src="/p/cloudflare-pages-test/20210306165536.png"
+				srcset="/p/cloudflare-pages-test/20210306165536_hu36ea88c02503ffeb0fcd27afbb2a107f_165488_480x0_resize_box_2.png 480w, /p/cloudflare-pages-test/20210306165536_hu36ea88c02503ffeb0fcd27afbb2a107f_165488_1024x0_resize_box_2.png 1024w"
+				width="1371"
+				height="633"
+				loading="lazy"
+				>
+		</a>
+		
+	</figure></p>
+<p>截至目前，从 <a class="link" href="https://www.cloudflarestatus.com/"  target="_blank" rel="noopener"
+    >Cloudflare System Status</a> 来看，在中国总共有23个节点，其中包含21个大陆节点，香港和台北各一个。在 Cloudflare 的全球节点支持下，相当于我们部署了全球 CDN，对于一个免费的产品来说，这完全足够我们使用了。</p>
+<h2 id="利用-cloudflare-pages-分发静态资源">利用 Cloudflare Pages 分发静态资源</h2>
+<p>在此之前，我们通常使用 jsdelivr 来分发静态资源，选择静态文件仓库，无构建命令即可。</p>
+<h3 id="加载对比">加载对比</h3>
+<p>以一张图片为例，可以复制到浏览器打开，体验相关速度。在我的环境下，Cloudflare 是不如 JSdelivr 的加载。实际效果请自行对比。</p>
+<p>对比组一，图片大小：1.44 MB。</p>
+<ul>
+<li><a class="link" href="https://cdn.jsdelivr.net/gh/vinceying/blog-file@master/photo/1593359677879-a4bb92f829d1.jpg"  target="_blank" rel="noopener"
+    >JSdelivr</a></li>
+<li><a class="link" href="https://blog-file.pages.dev/photo/1593359677879-a4bb92f829d1.jpg"  target="_blank" rel="noopener"
+    >Cloudflare</a></li>
+</ul>
+<p>对比组二，图片大小：336 KB。</p>
+<ul>
+<li><a class="link" href="https://cdn.jsdelivr.net/gh/vinceying/blog-file@master/photo/bg.jpg"  target="_blank" rel="noopener"
+    >JSdelivr</a></li>
+<li><a class="link" href="https://blog-file.pages.dev/photo/bg.jpg"  target="_blank" rel="noopener"
+    >Cloudflare</a></li>
+</ul>
+<h2 id="写在最后">写在最后</h2>
+<p><strong>Cloudflare Pages 速度不一定优于其它平台，取决于地区和网络环境等等诸多因素，具体效果请自行测试。</strong> Cloudflare Pages 做镜像站也是一个不错的选择，玩法多多，不妨尝试一下。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/cloudflare/">cloudflare</a>
+        
+            <a href="/tags/jamstack/">JAMStack</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    
+
+    
+    <section class="article-edit">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 7h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />
+  <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />
+  <line x1="16" y1="5" x2="19" y2="8" />
+</svg>
+        <span><a href="https://github.com/vinceying/Vince-blog/edit/main/content/post/cloudflare-pages-test/index.md" target="_blank">Edit this post</a></span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="has-image">
+    <a href="/p/zerotier/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://cdn.vince.pub/blog-file/photo/zerotier.png" loading="lazy" data-key="zerotier" data-hash="https://cdn.vince.pub/blog-file/photo/zerotier.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">最简单的内网穿透，Zerotier 试用</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/ruijie-router/">
+        
+        
+            <div class="article-image">
+                <img src="/p/ruijie-router/_hudbdb009d66fe2fb9335696c3e445f5c9_2295343_3fbc9b4e46244faee74918255161143c.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="ruijie-router" 
+                        data-hash="md5-wOP3Dn4&#43;BYaA383T5p882Q==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">校园网，我选择从路由器出手</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/hexo-static/">
+        
+        
+            <div class="article-image">
+                <img src="/p/hexo-static/ot5kWZkH97s.52327db9f3ea719b3156e0948a257dfd_hu1dd688a28ac1619380d5c4418b65fda0_2016847_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="hexo-static" 
+                        data-hash="md5-UjJ9ufPqcZsxVuCUiiV9/Q==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">常见静态网站托管平台使用及多节点部署方案</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/hexo-action-tencentcloudbase/">
+        
+        
+            <div class="article-image">
+                <img src="/p/hexo-action-tencentcloudbase/_hu76daa42ee1c018fe210986b7c2b1a3f6_1183642_f408f90c12916156f779509b7e5a40e8.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="Hexo-Action-TencentCloudBase" 
+                        data-hash="md5-Mg6x1L0e65xU62o3Gph2Og==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Hexo-Action-TencentCloudBase</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/fluid-doc-pr/">
+        
+        
+            <div class="article-image">
+                <img src="/p/fluid-doc-pr/fluid-doc.4110bb096e5719a689ddf10b79cacabc_hue3081500df4b6f13d715c7e336095cb1_133880_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="fluid-doc-pr" 
+                        data-hash="md5-QRC7CW5XGaaJ3fELecrKvA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Fluid 文档相关 PR 内容原稿</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+
+    
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container">
+    <script type="text/javascript">
+        var gitalk = new Gitalk({
+            clientID: `34177ce05983c9f52b9e`,
+            clientSecret: `72236395c56a2b3fa8200c23f7b728ca910fdf00`,
+            repo: `comment-vince`,
+            owner: 'vinceying',
+            admin: ['vinceying'],
+        });
+        gitalk.render('gitalk-container');
+    </script>
+</div>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 Vince
+    </section>
+    
+    <section class="powerby">
+        Built with <b><a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a></b>, Theme by <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="1.1.0">Stack</a></b>.</br>
+        <a href="https://github.com/vinceying" target="_blank" rel="noopener"><i class="iconfont icon-git" aria-hidden="true"></i>&nbsp&nbsp&nbsp</a>
+        <b><a href="https://www.vince.pub/" target="_blank" rel="noopener">Landing</a></b> |  <b><a href="/index.xml" target="_blank" rel="noopener">Feed</a></b> | <b><a href="https://status.vince.pub/" target="_blank" rel="noopener">Status</a></b> | <b><a href="#" target="_blank" rel="noopener">Mirror</a></b>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+            </main>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"
+    integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin="anonymous"></script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='在十月的某一天我决定将博客从 Fluid 切换到 Stack。'><title>从 Fluid 到 Stack</title>
+
+<link rel='canonical' href='https://i.vince.pub/p/hugo-blog/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='从 Fluid 到 Stack'>
+<meta property='og:description' content='在十月的某一天我决定将博客从 Fluid 切换到 Stack。'>
+<meta property='og:url' content='https://i.vince.pub/p/hugo-blog/'>
+<meta property='og:site_name' content='Vince'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Hugo' /><meta property='article:tag' content='Stack' /><meta property='article:published_time' content='2020-10-06T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-10-06T00:00:00&#43;00:00'/><meta property='og:image' content='https://i.vince.pub/p/hugo-blog/gryffyn-m-OdoW3-o62EM-unsplash.jpg' />
+<meta name="twitter:title" content="从 Fluid 到 Stack">
+<meta name="twitter:description" content="在十月的某一天我决定将博客从 Fluid 切换到 Stack。"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://i.vince.pub/p/hugo-blog/gryffyn-m-OdoW3-o62EM-unsplash.jpg' /><link rel="stylesheet" href="//at.alicdn.com/t/font_1744971_dbtmro899q7.css">
+<link rel="icon" type="image/png" href="https://cdn.vince.pub/static/layout.png">
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?6b11514a3e84903117ff81f55a5f9632";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/i_hu1f2350276bec84b9b06dd793b76e5959_39690_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+                    <span class="emoji">🍉</span>
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://i.vince.pub">Vince</a></h1>
+        <h2 class="site-description">five 养成计划</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/comment/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" />
+  <path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" />
+</svg>
+
+
+
+                
+                <span>Comment</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/links/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='https://old.vince.pub/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-back" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" />
+</svg>
+
+
+
+                
+                <span>Legacy</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>Dark Mode</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://i.vince.pub" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/hugo-blog/">
+                <img src="/p/hugo-blog/gryffyn-m-OdoW3-o62EM-unsplash_hu13d2ec2620b5f7e995d5814e5ed0d5db_362477_800x0_resize_q75_box.jpg"
+                        srcset="/p/hugo-blog/gryffyn-m-OdoW3-o62EM-unsplash_hu13d2ec2620b5f7e995d5814e5ed0d5db_362477_800x0_resize_q75_box.jpg 800w, /p/hugo-blog/gryffyn-m-OdoW3-o62EM-unsplash_hu13d2ec2620b5f7e995d5814e5ed0d5db_362477_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="533" 
+                        loading="lazy"
+                        alt="Featured image of post 从 Fluid 到 Stack" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E5%8D%9A%E5%AE%A2/" >
+                博客
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/hugo-blog/">从 Fluid 到 Stack</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        在十月的某一天我决定将博客从 Fluid 切换到 Stack。
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Oct 06, 2020</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="此前的博客">此前的博客</h2>
+<p>我换主题的几点原因：</p>
+<ul>
+<li>审美疲劳（人总是会变的）</li>
+<li>风格改变</li>
+<li>在 V2EX 遇到了 Stack</li>
+<li>∞</li>
+</ul>
+<p>总的来说主要原因还是想多尝试一下，在使用 Fluid 的过程中我学习到了很多东西，对于 Git 的使用就是在此过程中熟悉起来的。我不会放弃关注和使用 Fluid，依旧使用 Fluid 作为我的备用博客。</p>
+<h2 id="停更的几个月">停更的几个月</h2>
+<p>在六月底开始，我就很少更新博客了。主要是因为我去做暑假工了，体验了一下实习生的工作，导致没有什么时间关注的博客这一块上面。开学以后，我又遇到了一些十分糟糕的事情，导致我对生活失去了信心。经过反复思考，我认为博客应该作为我生活一个部分，博客应该成为日常。最大的作用就是能够督促我进行学习，five 养成计划。对自我的认知上，我急需提升自己。</p>
+<h2 id="使用-hugo-的过程遇到的问题">使用 Hugo 的过程遇到的问题</h2>
+<h3 id="html-渲染">HTML 渲染</h3>
+<p>由于一些原因，在写博客的时候有习惯插入一些 HTML 片段，单纯 Markdown 语法渲染出的内容有些不够用。在 Markdown 文件中插入 HTML 片段后 HTML 片段无法加载，于是查看了源代码，HTML 片段前出现 <code>&lt;!--raw Html omitted--&gt;</code>，随即查找了官方文档发现了问题所在，Hugo 在最近的版本中使用了 Glodmark 作为默认库，出于安全考虑，默认状态下不加载 HTML 片段。于是就有了两个方法，一是开启不安全设置，二是换回 Blackfriday 库，我认为前者为最佳方案。</p>
+<p>在配置文件 <code>config.toml</code> 中添加以下配置即可，以上问题算是解决了。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[<span style="color:#a6e22e">markup</span>]
+    [<span style="color:#a6e22e">markup</span>.<span style="color:#a6e22e">goldmark</span>]
+      [<span style="color:#a6e22e">markup</span>.<span style="color:#a6e22e">goldmark</span>.<span style="color:#a6e22e">renderer</span>]
+         <span style="color:#a6e22e">unsafe</span> = <span style="color:#66d9ef">true</span>
+</code></pre></div><h3 id="使用-ftp-deploy-action-推送文件时的问题">使用 FTP-Deploy-Action 推送文件时的问题</h3>
+<p>我将 Hugo 的 Source 文件存放在 Github 的一个仓库中，使用 Github Actions 进行渲染及推送到服务器上，但流程执行完毕后，服务器仍然没有相关文件，同时在运行的过程中没有进行报错。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">name</span>: <span style="color:#ae81ff">github pages</span>
+<span style="color:#f92672">on</span>:
+  <span style="color:#f92672">push</span>:
+    <span style="color:#f92672">branches</span>:
+      - <span style="color:#ae81ff">main </span> <span style="color:#75715e"># Set a branch to deploy</span>
+
+<span style="color:#f92672">jobs</span>:
+  <span style="color:#f92672">deploy</span>:
+    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-18.04</span>
+    <span style="color:#f92672">steps</span>:
+      - <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
+        <span style="color:#f92672">with</span>:
+          <span style="color:#f92672">submodules</span>: <span style="color:#66d9ef">true</span>  <span style="color:#75715e"># Fetch Hugo themes (true OR recursive)</span>
+          <span style="color:#f92672">fetch-depth</span>: <span style="color:#ae81ff">0</span>    <span style="color:#75715e"># Fetch all history for .GitInfo and .Lastmod</span>
+      
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Setup Hugo</span>
+        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">peaceiris/actions-hugo@v2</span>
+        <span style="color:#f92672">with</span>:
+          <span style="color:#f92672">hugo-version</span>: <span style="color:#e6db74">&#39;0.75.1&#39;</span>
+          <span style="color:#75715e"># extended: true</span>
+      
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Build</span>
+        <span style="color:#f92672">run</span>: <span style="color:#ae81ff">hugo --minify</span>
+      
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">FTP-Deploy-Action</span>
+        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">SamKirkland/FTP-Deploy-Action@3.1.1</span>
+        <span style="color:#f92672">with</span>:
+          <span style="color:#f92672">ftp-server</span>: <span style="color:#ae81ff">ftp-server</span>
+          <span style="color:#f92672">ftp-username</span>: <span style="color:#ae81ff">username</span>
+          <span style="color:#f92672">ftp-password</span>: <span style="color:#ae81ff">${{ secrets.FTP_PASSWORD_BLOG }}</span>
+          <span style="color:#f92672">local-dir</span>: <span style="color:#ae81ff">./public</span>
+</code></pre></div><p>反复检查工作流文件后，我发现并没有什么明显的错误，查看 log 后基本上可以把问题定位在 FTP-Deploy-Action 的步骤上。</p>
+<blockquote>
+<p>If you don&rsquo;t commit your build folder to github you MUST create a .git-ftp-include file with the content !build/ so the folder is always uploaded!</p>
+</blockquote>
+<p>查阅文档后发现，<code>./public</code> 中文件是在流程中生成的，并不是在仓库中的文件，需要添加 <code>.git-ftp-include</code> 文件后方可推送。思路上，我决定将<code>./public</code> 中文件推送到一个新的参考，然后在新的仓库使用 FTP-Deploy-Action。这样做的好处是可以使用 Github Pages 增加一个海外镜像网站（虽然没人看）。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/hugo/">Hugo</a>
+        
+            <a href="/tags/stack/">Stack</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    
+
+    
+    <section class="article-edit">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 7h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />
+  <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />
+  <line x1="16" y1="5" x2="19" y2="8" />
+</svg>
+        <span><a href="https://github.com/vinceying/Vince-blog/edit/main/content/post/hugo-blog/index.md" target="_blank">Edit this post</a></span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="has-image">
+    <a href="/p/fluid-write/">
+        
+        
+            <div class="article-image">
+                <img src="/p/fluid-write/fluid-write.14ae5c17f88e8f0fa4b1fbcfb6ba0562_huec09b2b1f3457b6ea35e360777f4730b_1271248_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="fluid-write" 
+                        data-hash="md5-FK5cF/iOjw&#43;ksfvPtroFYg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">个人免费建站，使用 Cloud Studio 建立个人博客</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+
+    
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container">
+    <script type="text/javascript">
+        var gitalk = new Gitalk({
+            clientID: `34177ce05983c9f52b9e`,
+            clientSecret: `72236395c56a2b3fa8200c23f7b728ca910fdf00`,
+            repo: `comment-vince`,
+            owner: 'vinceying',
+            admin: ['vinceying'],
+        });
+        gitalk.render('gitalk-container');
+    </script>
+</div>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 Vince
+    </section>
+    
+    <section class="powerby">
+        Built with <b><a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a></b>, Theme by <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="1.1.0">Stack</a></b>.</br>
+        <a href="https://github.com/vinceying" target="_blank" rel="noopener"><i class="iconfont icon-git" aria-hidden="true"></i>&nbsp&nbsp&nbsp</a>
+        <b><a href="https://www.vince.pub/" target="_blank" rel="noopener">Landing</a></b> |  <b><a href="/index.xml" target="_blank" rel="noopener">Feed</a></b> | <b><a href="https://status.vince.pub/" target="_blank" rel="noopener">Status</a></b> | <b><a href="#" target="_blank" rel="noopener">Mirror</a></b>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+            </main>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"
+    integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin="anonymous"></script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

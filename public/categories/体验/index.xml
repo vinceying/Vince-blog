@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>体验 on Vince</title>
+    <link>https://i.vince.pub/categories/%E4%BD%93%E9%AA%8C/</link>
+    <description>Recent content in 体验 on Vince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 05 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://i.vince.pub/categories/%E4%BD%93%E9%AA%8C/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Chrome OS 体验与常用环境</title>
+      <link>https://i.vince.pub/p/my-chromebook/</link>
+      <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://i.vince.pub/p/my-chromebook/</guid>
+      <description>Chrome OS 体验与常用环境，或许我们应该对它改观（Pixelbook 体验）。由于文字内容过多，本文为原创，直接给出知乎链接，以后的文章应该会更新到本站。 点击这里查看文章</description>
+    </item>
+    
+  </channel>
+</rss>

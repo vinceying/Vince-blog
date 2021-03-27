@@ -120,12 +120,6 @@ menu:
           weight: -60
           pre: search
 
-        - identifier: legacy
-          name: Legacy
-          url: https://old.vince.pub/
-          weight: -50
-          pre: arrow-back
-
 related:
     includeNewer: true
     threshold: 60

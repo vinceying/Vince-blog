@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>fluid on Vince</title>
+    <link>https://i.vince.pub/tags/fluid/</link>
+    <description>Recent content in fluid on Vince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 13 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://i.vince.pub/tags/fluid/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>个人免费建站，使用 Cloud Studio 建立个人博客</title>
+      <link>https://i.vince.pub/p/fluid-write/</link>
+      <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://i.vince.pub/p/fluid-write/</guid>
+      <description>前言 Fluid 是一款很十分优雅的主题，那么写一篇优雅的文章搭配它呢？以下会从几个方面来简述，主要还是做几个推荐。
+文章内容 熟悉 Markdown 语法 对于使用 Hexo 的大多数人来说，相信对 Markdown 的语法不会陌生。熟练掌握 Markdown 语法对我们的写作拥有极大的帮助，这里用少用的表格和脚注来举个例子。至于为什么有些公式、流程图无法渲染，是因为 Markdown 追求简洁式写作，默认渲染器不支持复杂渲染。
+表格    站点 地址 介绍     FluidDocs https://hexo.fluid-dev.com/docs/ Fluid官方文档   Hexo-theme-fluid https://github.com/fluid-dev/hexo-theme-fluid FluidGithub Repo   Fluid Blog https://hexo.fluid-dev.com/ Fluid官方博客    站点|地址|介绍--|:--:|--:FluidDocs|https://hexo.fluid-dev.com/docs/|Fluid官方文档Hexo-theme-fluid|https://github.com/fluid-dev/hexo-theme-fluid|FluidGithub RepoFluid Blog|https://hexo.fluid-dev.com/|Fluid官方博客脚注(仅默认渲染器可用) 脚注演示1
+脚注演示[^footnote][^footnote]: 脚注内容演示善用 HTML 我们可以在 Markdown 中插入一些简单的 HTML 代码或 CSS 片段来获得更多扩展，使得文章内容更具有多样性。以下演示几个简单功能。
+跳转位置演示（跳转位置设置点）文字颜色 #519D9E颜色演示&amp;lt;span style=&amp;#34;color: #519D9E; &amp;#34;&amp;gt;#519D9E颜色演示&amp;lt;/span&amp;gt;  文字大小 0.</description>
+    </item>
+    
+    <item>
+      <title>Fluid 文档相关 PR 内容原稿</title>
+      <link>https://i.vince.pub/p/fluid-doc-pr/</link>
+      <pubDate>Wed, 22 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://i.vince.pub/p/fluid-doc-pr/</guid>
+      <description>前言 本篇记录在 Fluid 文档中自己 PR 的内容原稿，持续更新中。
+在 Fluid 使用更多图标的详细过程 说明 Fluid 在2020/4/5之前的版本使用的图标库是 FontAwesome，在之后的版本使用 Iconfont。相对而言，Iconfont 更适合我们的使用习惯，但是在 Iconfont 中，没用相关图标库项目共享功能，且主题作者也不能内置全部图标，只内置了部分社交图标，不过据了解，后续会更新更多图标。这篇帖子主要介绍如何引入更多图标，另外内容已经 PR 到 Fluid Doc 中。
+关于 font-class 引用 主题图标使用 font-class 引用，font-class 是 unicode 使用方式的一种变种，比起 unicode 更加便捷和直观。iconfont 支持在线引用和本地引用。以下内容基于 font-class 引用。
+本地应用 首先需要获取图标的 CSS 文件，将文件放到主题目录 &amp;lsquo;source/css&amp;rsquo; 中，在主题配置文件 custom_css 项中添加 CSS 文件路径。
+实例
+custom_css: /css/custom.css在相关文件、页面，将 icon- 开头的那行填入 css class 即可。比如： iconfont icon-email 。
+Iconfont 在线引用 Iconfont支持用户创建项目来管理和使用图标库，在 图标管理-我的项目 中即可管理和创建项目。将所需图标添加至购物车，再通过购物车添加至所创建的项目中。在项目中可以下载至本地与生成在线链接，Iconfont 支持在阿里云的 CDN 中生成 CSS 或 JS 文件用来调用。</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>内网穿透 on Vince</title>
+    <link>https://i.vince.pub/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</link>
+    <description>Recent content in 内网穿透 on Vince</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 18 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://i.vince.pub/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>最简单的内网穿透，Zerotier 试用</title>
+      <link>https://i.vince.pub/p/zerotier/</link>
+      <pubDate>Fri, 18 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://i.vince.pub/p/zerotier/</guid>
+      <description>前言 这里不得不吐槽一下学校，把一些仪器和教务管理系统设置在内网，必需通过校园网的环境下才能访问，然后无线网覆盖范围和信号状态及其虚拟专用网客户端长期不更新。之前有提到过，在宿舍购置了一台路由器，运行的是 OpenWrt。在宿舍中的路由器是可以访问校园网的，决定使用内网穿透解决这个问题。另外，深有体会，越好的大学信息服务越好,没有高考的同学加油。
+校园网，我选择从路由器出手2020-10-21#校园网&amp;nbsp;#路由器&amp;nbsp;无言以对的校园网政策 众所周知，某些学校的校园网完全就是一个商业项目，对使用有十分大的限制。比如我所在的学校，只运行一台设备在线，WLAN 和 LAN 需要选择一个，不能混用账号。然而，经过实测校园网分配给每个用户的物理带宽早就超过了百兆，足以够一个小型家庭使用，何况是一个宿舍。学校的这种做法无非是恰X钱。入学开始我就开始了对校园网的探索，起初的想法是路由器模拟设备镜像认证，因为有前人栽树的缘故，一切都进行的比较顺利。 对认证方式的分析 初探 初次登录，未进行认证的设备会重定向到登录界面，通过查看源代码，这不就是 Ruijie WEB Portal 接入认证。我觉得先到 Github 找一下例子，梳理一些思路。当我在 Github 搜索 Ruijie Portal 时，一个叫 RuijiePortalLoginTool 的项目让我发现，一切似乎都变的简单起来了。 实现原理 构造的关键便是这步，去年的时候我一直以为 Ruijie 会将主程序升级，然而我发现，像我校这种**，会一直为认证服务器使用出厂版本。 #Structure loginURL loginURL=`echo $loginPageURL | awk -F \? &amp;amp;#39;{print $1}&amp;amp;#39;` loginURL=&amp;amp;#34;${loginURL/index.jsp/InterFace.do?method=login}&amp;amp;#34; #Structure quertString queryString=`echo $loginPageURL | awk -F \? &amp;amp;#39;{print $2}&amp;amp;#39;` queryString=&amp;amp;#34;${queryString//&amp;amp;amp;/%2526}&amp;amp;#34; queryString=&amp;amp;#34;${queryString//=/%253D}&amp;amp;#34; #Send Ruijie eportal auth request and output result if [ -n &amp;amp;#34;$loginURL&amp;amp;#34; ]; then authResult=`curl -s -A &amp;amp;#34;Mozilla/5.</description>
+    </item>
+    
+  </channel>
+</rss>
