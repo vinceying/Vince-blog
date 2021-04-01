@@ -1,5 +1,9 @@
 # Vince-blog
 
+<p align="center">
+  <img alt="Logo" src="https://cdn.vince.pub/blog-file/photo/logo_mistyle.png" width="128">
+</p>
+
 ## Deploy & Theme
 
 ![Deploy to TCB](https://github.com/vinceying/Vince-blog/workflows/Deploy%20to%20TCB/badge.svg)
