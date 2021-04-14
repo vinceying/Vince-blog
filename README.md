@@ -1,5 +1,3 @@
-# Vince-blog
-
 <p align="center">
   <img alt="Logo" src="https://cdn.vince.pub/blog-file/photo/logo_mistyle.png" width="128">
 </p>
