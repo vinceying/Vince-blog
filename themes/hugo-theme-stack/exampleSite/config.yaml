@@ -7,8 +7,11 @@ title: Example Site
 # Change it to your Disqus shortname before using
 disqusShortname: hugo-theme-stack
 
+# GA Tracking ID
+googleAnalytics:
+
 # Theme i18n support
-# Available values: en, fr, id, ja, ko, pt-br, zh-cn
+# Available values: en, fr, id, ja, ko, pt-br, zh-cn, es, de, nl
 DefaultContentLanguage: en
 
 permalinks:
@@ -46,11 +49,16 @@ params:
     comments:
         enabled: true
         provider: disqus
+
         utterances:
             repo:
             issueTerm: pathname
             label:
-            theme: preferred-color-scheme
+
+        remark42:
+            host:
+            site:
+            locale:
 
     widgets:
         enabled:
@@ -60,7 +68,6 @@ params:
 
         archives:
             limit: 5
-            path: archives
 
         tagCloud:
             limit: 10
@@ -82,7 +89,7 @@ params:
     colorScheme:
         # Display toggle
         toggle: true
-        
+
         # Available values: auto, light, dark
         default: auto
 
@@ -92,6 +99,9 @@ params:
         content:
             enabled: true
 
+### Custom menu
+### See https://docs.stack.jimmycai.com/configuration/custom-menu
+### To remove about, archive and search page menu item, remove `menu` field from their FrontMatter
 menu:
     main:
         - identifier: home
@@ -99,24 +109,6 @@ menu:
           url: /
           weight: -100
           pre: home
-
-        - identifier: about
-          name: About
-          url: about
-          weight: -90
-          pre: user
-
-        - identifier: archives
-          name: Archives
-          url: archives
-          weight: -70
-          pre: archives
-
-        - identifier: search
-          name: Search
-          url: search
-          weight: -60
-          pre: search
 
 related:
     includeNewer: true
