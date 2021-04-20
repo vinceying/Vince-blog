@@ -29,4 +29,4 @@ jobs:
           server: 42.192.249.51
           username: mirror
           password: ${{ secrets.FTP_MIRROR_PASSWORD }}
-          local-dir: ./public
+          local-dir: ./public/
