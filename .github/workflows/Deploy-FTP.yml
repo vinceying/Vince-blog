@@ -1,9 +1,9 @@
-name: Deploy to TCB
+name: Deploy to Server
 
 on:
   push:
     branches:
-      - main  # Set a branch to deploy
+      - main
 
 jobs:
   deploy:
@@ -22,13 +22,11 @@ jobs:
 
       - name: Build
         run: hugo --minify
-     
-      # Deploy static to Tencent CloudBase
-      - name: Deploy static to Tencent CloudBase
-        id: deployStatic
-        uses: TencentCloudBase/cloudbase-action@v1.1.1
+      
+      - name: Deploy files
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
-          secretId: ${{ secrets.SECRET_ID }}
-          secretKey: ${{ secrets.SECRET_KEY }}
-          envId: ${{ secrets.ENV_ID }}
-          staticSrcPath: public
+          server: 42.192.249.51
+          username: mirror
+          password: ${{ secrets.FTP_MIRROR_PASSWORD }}
+          local-dir: public
