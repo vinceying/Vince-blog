@@ -126,29 +126,6 @@
         <guid>https://i.vince.pub/p/zerotier/</guid>
         <description>&lt;img src="https://cdn.vince.pub/blog-file/photo/zerotier.png" alt="Featured image of post 最简单的内网穿透，Zerotier 试用" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;这里不得不吐槽一下学校，把一些仪器和教务管理系统设置在内网，必需通过校园网的环境下才能访问，然后无线网覆盖范围和信号状态及其虚拟专用网客户端长期不更新。之前有提到过，在宿舍购置了一台路由器，运行的是 OpenWrt。在宿舍中的路由器是可以访问校园网的，决定使用内网穿透解决这个问题。另外，深有体会，越好的大学信息服务越好,没有高考的同学加油。&lt;/p&gt;
-
-
-&lt;div class=&#34;post-preview&#34;&gt;
-  &lt;div class=&#34;post-preview--meta&#34; style=&#34;width:100%;&#34;&gt;
-    &lt;div class=&#34;post-preview--middle&#34;&gt;
-      &lt;h4 class=&#34;post-preview--title&#34;&gt;
-        &lt;a target=&#34;_blank&#34; href=&#34;https://i.vince.pub/p/ruijie-router/&#34;&gt;校园网，我选择从路由器出手&lt;/a&gt;
-      &lt;/h4&gt;
-      &lt;time class=&#34;post-preview--date&#34;&gt;2020-10-21&lt;/time&gt;
-      
-      &lt;small&gt;#校园网&amp;nbsp;#路由器&amp;nbsp;&lt;/small&gt;
-      
-      &lt;section style=&#34;max-height:105px;overflow:hidden;&#34; class=&#34;post-preview--excerpt&#34;&gt;
-        无言以对的校园网政策 众所周知，某些学校的校园网完全就是一个商业项目，对使用有十分大的限制。比如我所在的学校，只运行一台设备在线，WLAN 和 LAN 需要选择一个，不能混用账号。然而，经过实测校园网分配给每个用户的物理带宽早就超过了百兆，足以够一个小型家庭使用，何况是一个宿舍。学校的这种做法无非是恰X钱。入学开始我就开始了对校园网的探索，起初的想法是路由器模拟设备镜像认证，因为有前人栽树的缘故，一切都进行的比较顺利。
-对认证方式的分析 初探 初次登录，未进行认证的设备会重定向到登录界面，通过查看源代码，这不就是 Ruijie WEB Portal 接入认证。我觉得先到 Github 找一下例子，梳理一些思路。当我在 Github 搜索 Ruijie Portal 时，一个叫 RuijiePortalLoginTool 的项目让我发现，一切似乎都变的简单起来了。
-实现原理  
-构造的关键便是这步，去年的时候我一直以为 Ruijie 会将主程序升级，然而我发现，像我校这种**，会一直为认证服务器使用出厂版本。
-#Structure loginURL loginURL=`echo $loginPageURL | awk -F \? &amp;amp;#39;{print $1}&amp;amp;#39;` loginURL=&amp;amp;#34;${loginURL/index.jsp/InterFace.do?method=login}&amp;amp;#34; #Structure quertString queryString=`echo $loginPageURL | awk -F \? &amp;amp;#39;{print $2}&amp;amp;#39;` queryString=&amp;amp;#34;${queryString//&amp;amp;amp;/%2526}&amp;amp;#34; queryString=&amp;amp;#34;${queryString//=/%253D}&amp;amp;#34; #Send Ruijie eportal auth request and output result if [ -n &amp;amp;#34;$loginURL&amp;amp;#34; ]; then authResult=`curl -s -A &amp;amp;#34;Mozilla/5.0 (Windows NT 10.
-      &lt;/section&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-
 &lt;h2 id=&#34;开始使用&#34;&gt;开始使用&lt;/h2&gt;
 &lt;p&gt;Zerotier 是一个开源软件，同时也被称谓傻瓜式的内网穿透软件。免费版即可支持50个设备，已经足够我的使用了。简单的说，注册完创建了 Network ID 后输入设备的客户端中，配置完路由规则后，即可开始使用了。&lt;/p&gt;
 &lt;h3 id=&#34;通过-ssh-安装-zentier&#34;&gt;通过 SSH 安装 Zentier&lt;/h3&gt;
@@ -239,7 +216,7 @@ fi
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;sh /filepath/ruijie.sh usename password
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;使用快捷指令运行脚本&#34;&gt;使用快捷指令运行脚本&lt;/h3&gt;
 &lt;p&gt;在不使用 Cron 定时任务的情况下，我需要每次都使用 SSH 连接路由器然后运行脚本。得益于快捷指令 APP，快捷指令支持 SSH 连接，这一切又变的简单起来了。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;IMG_0005%2820201021-212444%29.PNG&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.vince.pub/IMG_0005%2820201021-212444%29.PNG&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
 &lt;h3 id=&#34;新路由器redmi-ac2100&#34;&gt;新路由器，Redmi AC2100&lt;/h3&gt;
 &lt;p&gt;前面也有提及，因为之前只是想做一个实验性的操作，选择了价格实惠，翻车也可接受的20元二手极路由，但是由于宿舍设备增加，在校半年，疫情半年，今年是时候换新了。逛了一下恩山，最后发现 AC2100 还是真香的。&lt;/p&gt;
 &lt;p&gt;不过 AC2100 不带 USB 端口，这旧以为着刷机没有那么简单了。在没有漏洞的情况下，拆机刷机是唯一选择。恩山老哥还是非常稳的，不拆机教程还是有的。比起以前刷个 Breed，然后刷固件难度确实增加了很多。简单的步骤就是通过后门开启 telnet，获取 root 权限，刷写固件，这里就不累赘了，恩山有非常详细的&lt;a class=&#34;link&#34; href=&#34;https://www.right.com.cn/forum/thread-4027477-1-1.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;

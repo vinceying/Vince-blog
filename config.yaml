@@ -35,7 +35,7 @@ params:
         subtitle: five 养成计划
         avatar:
             local: true
-            src: img/i.jpg
+            src: img/i.png
 
     article:
         math: false

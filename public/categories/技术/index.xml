@@ -29,7 +29,11 @@
       
       <guid>https://i.vince.pub/p/zerotier/</guid>
       <description>前言 这里不得不吐槽一下学校，把一些仪器和教务管理系统设置在内网，必需通过校园网的环境下才能访问，然后无线网覆盖范围和信号状态及其虚拟专用网客户端长期不更新。之前有提到过，在宿舍购置了一台路由器，运行的是 OpenWrt。在宿舍中的路由器是可以访问校园网的，决定使用内网穿透解决这个问题。另外，深有体会，越好的大学信息服务越好,没有高考的同学加油。
-校园网，我选择从路由器出手2020-10-21#校园网&amp;nbsp;#路由器&amp;nbsp;无言以对的校园网政策 众所周知，某些学校的校园网完全就是一个商业项目，对使用有十分大的限制。比如我所在的学校，只运行一台设备在线，WLAN 和 LAN 需要选择一个，不能混用账号。然而，经过实测校园网分配给每个用户的物理带宽早就超过了百兆，足以够一个小型家庭使用，何况是一个宿舍。学校的这种做法无非是恰X钱。入学开始我就开始了对校园网的探索，起初的想法是路由器模拟设备镜像认证，因为有前人栽树的缘故，一切都进行的比较顺利。 对认证方式的分析 初探 初次登录，未进行认证的设备会重定向到登录界面，通过查看源代码，这不就是 Ruijie WEB Portal 接入认证。我觉得先到 Github 找一下例子，梳理一些思路。当我在 Github 搜索 Ruijie Portal 时，一个叫 RuijiePortalLoginTool 的项目让我发现，一切似乎都变的简单起来了。 实现原理 构造的关键便是这步，去年的时候我一直以为 Ruijie 会将主程序升级，然而我发现，像我校这种**，会一直为认证服务器使用出厂版本。 #Structure loginURL loginURL=`echo $loginPageURL | awk -F \? &amp;amp;#39;{print $1}&amp;amp;#39;` loginURL=&amp;amp;#34;${loginURL/index.jsp/InterFace.do?method=login}&amp;amp;#34; #Structure quertString queryString=`echo $loginPageURL | awk -F \? &amp;amp;#39;{print $2}&amp;amp;#39;` queryString=&amp;amp;#34;${queryString//&amp;amp;amp;/%2526}&amp;amp;#34; queryString=&amp;amp;#34;${queryString//=/%253D}&amp;amp;#34; #Send Ruijie eportal auth request and output result if [ -n &amp;amp;#34;$loginURL&amp;amp;#34; ]; then authResult=`curl -s -A &amp;amp;#34;Mozilla/5.</description>
+开始使用 Zerotier 是一个开源软件，同时也被称谓傻瓜式的内网穿透软件。免费版即可支持50个设备，已经足够我的使用了。简单的说，注册完创建了 Network ID 后输入设备的客户端中，配置完路由规则后，即可开始使用了。
+通过 SSH 安装 Zentier OpenWRT 使用 Opkg 来进行包管理，通过 Opkg 命令直接安装 Zentier 即可。
+opkg install zentier 配置文件的路径是 /etc/config/zerotier，使用熟悉的编辑器对其进行配置即可，这里以 Vim 为例。部分路由器固件(例如 LuCI）内置了 Zentier,可以可视化操作。
+vim /etc/config/zerotier 以我的配置为例，其中由于我的路由器内置了 Zerotier，设置 option nat 项允许 Zerotier 拨入客户端访问路由器 LAN 资源。之后，放行出入站数据。在 OpenWrt 的 网络-防火墙 中将 出站数据 和 入站数据 .
+config zerotier &amp;#39;sample_config&amp;#39; option config_path &amp;#39;/etc/zerotier&amp;#39; list join &amp;#39;&amp;lt;your Network ID&amp;gt;&amp;#39; option enabled &amp;#39;1&amp;#39; option nat &amp;#39;1&amp;#39; 配置使用 在 Zerotier 网页配置 Managed Routes 中添加添加路由设置。以外网访问路由器管理页面（192.</description>
     </item>
     
     <item>
@@ -89,7 +93,7 @@ action-hexo</description>
 关于 font-class 引用 主题图标使用 font-class 引用，font-class 是 unicode 使用方式的一种变种，比起 unicode 更加便捷和直观。iconfont 支持在线引用和本地引用。以下内容基于 font-class 引用。
 本地应用 首先需要获取图标的 CSS 文件，将文件放到主题目录 &amp;lsquo;source/css&amp;rsquo; 中，在主题配置文件 custom_css 项中添加 CSS 文件路径。
 实例
-custom_css: /css/custom.css在相关文件、页面，将 icon- 开头的那行填入 css class 即可。比如： iconfont icon-email 。
+custom_css: /css/custom.css 在相关文件、页面，将 icon- 开头的那行填入 css class 即可。比如： iconfont icon-email 。
 Iconfont 在线引用 Iconfont支持用户创建项目来管理和使用图标库，在 图标管理-我的项目 中即可管理和创建项目。将所需图标添加至购物车，再通过购物车添加至所创建的项目中。在项目中可以下载至本地与生成在线链接，Iconfont 支持在阿里云的 CDN 中生成 CSS 或 JS 文件用来调用。</description>
     </item>
     
