@@ -1,6 +1,6 @@
 ---
-title: 前端在线编辑博客，使用 Codespace 搭建 Hexo 博客
-description: 使用 Codespace 搭建 Hexo 博客，可以完全通过前端界面编辑及部署 Hexo 博客。
+title: 前端在线编辑博客，使用 Codespaces 搭建 Hexo 博客
+description: 使用 Codespaces 搭建 Hexo 博客，可以完全通过前端界面编辑及部署 Hexo 博客。
 date: 2021-05-14
 slug: hexo-codespaces
 image: 20210515152919.png
