@@ -1,4 +1,4 @@
-name: Deploy to Server
+name: Deploy to Sync-repo
 
 on:
   push:
@@ -23,10 +23,10 @@ jobs:
       - name: Build
         run: hugo --minify
       
-      - name: Deploy files
-        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          server: 42.192.249.51
-          username: mirror
-          password: ${{ secrets.FTP_MIRROR_PASSWORD }}
-          local-dir: ./public/
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          external_repository: vinceying/vince-blog-sync
+          publish_branch: main
+          publish_dir: ./public
