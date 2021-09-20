@@ -1,0 +1,839 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vince</title><link>https://i.vince.pub/</link><description>Recent content on Vince</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 14 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://i.vince.pub/index.xml" rel="self" type="application/rss+xml"/><item><title>前端在线编辑博客，使用 Codespaces 搭建 Hexo 博客</title><link>https://i.vince.pub/p/hexo-codespaces/</link><pubDate>Fri, 14 May 2021 00:00:00 +0000</pubDate><guid>https://i.vince.pub/p/hexo-codespaces/</guid><description>&lt;img src="https://i.vince.pub/p/hexo-codespaces/20210515152919.png" alt="Featured image of post 前端在线编辑博客，使用 Codespaces 搭建 Hexo 博客" />&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>多数情况下，我们会选择将 Hexo 安装在本地，其中最大的痛点就是不能多设备同步和环境固定。之后，在 GitHub Actions 推出以后，我们可以将 Hexo 的 Source 文件保存，通过 CI 来部署我们的博客，这样的好处就是跨设备同步非常方便，但是预览上会遇到一些问题。现在，GitHub 的 Codespaces 推出后，Hexo 的纯前端编辑部署完全可以实现了。本篇介绍如何使用 Codespaces 搭建 Hexo 博客及几种部署方法。Codespces 还支持&lt;strong>自动设置依赖关系、SSH 密钥。&lt;/strong>&lt;/p>
+&lt;h2 id="安装">安装&lt;/h2>
+&lt;h3 id="仓库及环境">仓库及环境&lt;/h3>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 168;
+flex-basis: 404px"
+>
+&lt;a href="https://i.vince.pub/p/hexo-codespaces/1.png" data-size="1466x870">
+&lt;img src="https://i.vince.pub/p/hexo-codespaces/1.png"
+width="1466"
+height="870"
+srcset="https://i.vince.pub/p/hexo-codespaces/1_hu19fe977ffa366665e17bae13084df628_370302_480x0_resize_box_2.png 480w, https://i.vince.pub/p/hexo-codespaces/1_hu19fe977ffa366665e17bae13084df628_370302_1024x0_resize_box_2.png 1024w"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure> &lt;figure
+class="gallery-image"
+style="
+flex-grow: 167;
+flex-basis: 401px"
+>
+&lt;a href="https://i.vince.pub/p/hexo-codespaces/2.png" data-size="1437x859">
+&lt;img src="https://i.vince.pub/p/hexo-codespaces/2.png"
+width="1437"
+height="859"
+srcset="https://i.vince.pub/p/hexo-codespaces/2_hud3cb679691b3d80af0ff24c2f1993b6b_328293_480x0_resize_box_2.png 480w, https://i.vince.pub/p/hexo-codespaces/2_hud3cb679691b3d80af0ff24c2f1993b6b_328293_1024x0_resize_box_2.png 1024w"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
+&lt;p>创建一个新的仓库，由于我将静态资源也存放到这个仓库（之后会提及)，所以&lt;strong>推荐使用公开库&lt;/strong>，如果需要使用私有库，需要将静态资源分离，放在一个公开库，创建之后打开 Codespaces。&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://static.vince.pub/images/2021-05-14/3.png" >
+&lt;img src="https://static.vince.pub/images/2021-05-14/3.png"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
+&lt;p>接下来即可安装 Hexo，Codespaces 内置了 Node.js 和 Git，无需再安装相关应用程序。安装 Heox &lt;a class="link" href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener"
+>文档&lt;/a>，的相关内容，我们很快就可以完成安装。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-shell" data-lang="shell">npm install -g hexo-cli &lt;span class="c1"># 全局安装 Hexo。&lt;/span>
+hexo init blog &lt;span class="c1"># &amp;lt;folder&amp;gt; 这里以 blog 为例。&lt;/span>
+&lt;span class="nb">cd&lt;/span> blog
+npm install
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以上我们已经完成了 Hexo 的安装和建站，Hexo 的 Source 文件位于 &lt;code>/workspaces/hexo-codespaces-demo/blog&lt;/code> 下。依据个人需求对配置项进行调整后便可以开始预览了。&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 165;
+flex-basis: 396px"
+>
+&lt;a href="https://i.vince.pub/p/hexo-codespaces/4.png" data-size="1411x855">
+&lt;img src="https://i.vince.pub/p/hexo-codespaces/4.png"
+width="1411"
+height="855"
+srcset="https://i.vince.pub/p/hexo-codespaces/4_hu46d39a6b874a541e98a058239cf720bc_258812_480x0_resize_box_2.png 480w, https://i.vince.pub/p/hexo-codespaces/4_hu46d39a6b874a541e98a058239cf720bc_258812_1024x0_resize_box_2.png 1024w"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure> &lt;figure
+class="gallery-image"
+style="
+flex-grow: 164;
+flex-basis: 395px"
+>
+&lt;a href="https://i.vince.pub/p/hexo-codespaces/5.png" data-size="1437x873">
+&lt;img src="https://i.vince.pub/p/hexo-codespaces/5.png"
+width="1437"
+height="873"
+srcset="https://i.vince.pub/p/hexo-codespaces/5_hu8603befad4480aa02bc6ba6d04a20775_578142_480x0_resize_box_2.png 480w, https://i.vince.pub/p/hexo-codespaces/5_hu8603befad4480aa02bc6ba6d04a20775_578142_1024x0_resize_box_2.png 1024w"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-shell" data-lang="shell">hexo clean
+hexo s
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>hexo s&lt;/code> 后便可以通过 Codespaces 提供的网站来预览博客了。Codespaces 的一大亮点就是&lt;strong>可以将 Local Address 映射到公网&lt;/strong>，这样我们就可以通过这个功能来预览主题和修改了。&lt;/p>
+&lt;h3 id="主题安装">主题安装&lt;/h3>
+&lt;p>这里以 &lt;a class="link" href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="noopener"
+>hexo-theme-fluid&lt;/a> 为例来安装主题，使用 git clone 来克隆主题文件。之后根据自己的需求来调整配置项，关于 hexo 和主题的配置，这里就不再累赘了。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="nb">cd&lt;/span> themes &lt;span class="c1"># 位于 /workspaces/hexo-codespaces-demo/blog 下。&lt;/span>
+git clone https://github.com/fluid-dev/hexo-theme-fluid.git
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="部署">部署&lt;/h2>
+&lt;p>这里主要写了 hexo deploy 和一些 JAMStack 的平台的部署，关于部署到服务器和 OSS 等平台就不多累赘了，可以通过 GitHub Action 来实现。&lt;/p>
+&lt;h3 id="使用-hexo-deploy-来部署">使用 hexo deploy 来部署&lt;/h3>
+&lt;p>Hexo 提供了快速方便的一键部署功能，让您只需一条命令就能将网站部署到仓库上。这个部署多用于在 GitHub 等代码托管平台上，用于使用相关的 Page 服务。&lt;strong>注意，每次做出改动都需要手动部署生效。&lt;/strong>&lt;/p>
+&lt;p>安装 hexo-deployer-git 插件。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-shell" data-lang="shell">npm install hexo-deployer-git --save
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在 &lt;code>_config.yml&lt;/code> 中修改 deploy 配置项。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">deploy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">git&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">repository&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;repository url&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># demo:git@github.com:vinceying/hexo-codespaces-demo.git&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">branch&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="l">branch]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">message&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="l">message]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-shell" data-lang="shell">hexo clean &lt;span class="c1"># hexo 三连&lt;/span>
+hexo g
+hexo d
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="使用-vercel-或-netlify-等-jamstack-平台部署">使用 Vercel 或 Netlify 等 JAMStack 平台部署&lt;/h3>
+&lt;p>使用此类平台部署选择对应仓库即可，但是由于 Hexo 源文件没有在根目录，注意填写 &lt;code>ROOT DIRECTORY&lt;/code> 项，比如这里填写 blog。&lt;/p>
+&lt;h2 id="写在最后">写在最后&lt;/h2>
+&lt;p>使用 Codespace 的最大有点在于多设备使用、预览和方便快捷（自动设置依赖关系、SSH 密钥等）。使用 Codespace 可以跨平台，且没有本地依赖的相关。&lt;/p>
+&lt;h3 id="关于-static-文件夹">关于 Static 文件夹&lt;/h3>
+&lt;p>之前也有提及，创建这个文件夹主要是使用 &lt;a class="link" href="https://www.jsdelivr.com/github" target="_blank" rel="noopener"
+>JSdelivr&lt;/a> 来对静态资源进行加速，放在同一个仓库完全是为了方便管理。&lt;/p>
+&lt;h3 id="fork-使用">Fork 使用&lt;/h3>
+&lt;p>你可以通过查看 &lt;a class="link" href="https://github.com/vinceying/hexo-codespaces-demo#readme" target="_blank" rel="noopener"
+>README&lt;/a> 来了解如何快捷使用。&lt;/p></description></item><item><title>Cloudflare Pages 试用及速度对比，以克隆 hexo-fluid-theme 官方博客为例</title><link>https://i.vince.pub/p/cloudflare-pages-test/</link><pubDate>Sat, 06 Mar 2021 00:00:00 +0000</pubDate><guid>https://i.vince.pub/p/cloudflare-pages-test/</guid><description>&lt;img src="https://i.vince.pub/p/cloudflare-pages-test/Cloudflare%20Pages_hero.png" alt="Featured image of post Cloudflare Pages 试用及速度对比，以克隆 hexo-fluid-theme 官方博客为例" />&lt;h2 id="概述">概述&lt;/h2>
+&lt;p>从看到相关产品新闻后，还是非常期待这个产品的。我在去年12月订阅了 Cloudflare Pages 的相关消息，一直等到今天凌晨在接到了可以开始测试使用的邮件。相比与 Vercel 和 Netlify 等同类产品来说，Cloudflare Pages 的最多优势在于节点。在此之前，我相信很多就接触或者使用过 Cloudflare 的全球加速服务了。值得一提的是，相对来说 Cloudflare 的大陆节点确实还不少。&lt;/p>
+&lt;p>总结了一下，总共有以下几点特性，应该也算是该有的基本功能。团队协作，可以邀请加入 Cloudflare 帐户，以协作处理所有项目。快速构建，我们最常用到的 Git 集成，这也与版本管理相关联。目前已经支持大部分的框架和工具，具体可以 &lt;a class="link" href="https://developers.cloudflare.com/pages/platform/build-configuration" target="_blank" rel="noopener"
+>相关文档&lt;/a>。最重要的是，提供的免费服务也足够我们的使用。&lt;/p>
+&lt;ul>
+&lt;li>团队协作&lt;/li>
+&lt;li>快速构建&lt;/li>
+&lt;li>版本管理&lt;/li>
+&lt;li>免费高速&lt;/li>
+&lt;/ul>
+&lt;h2 id="试用和对比">试用和对比&lt;/h2>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 168;
+flex-basis: 404px"
+>
+&lt;a href="https://i.vince.pub/p/cloudflare-pages-test/2021-03-06140812.png" data-size="1657x982">
+&lt;img src="https://i.vince.pub/p/cloudflare-pages-test/2021-03-06140812.png"
+width="1657"
+height="982"
+srcset="https://i.vince.pub/p/cloudflare-pages-test/2021-03-06140812_hu0922e596e40d02197b7f51215122a065_447865_480x0_resize_box_2.png 480w, https://i.vince.pub/p/cloudflare-pages-test/2021-03-06140812_hu0922e596e40d02197b7f51215122a065_447865_1024x0_resize_box_2.png 1024w"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure> &lt;figure
+class="gallery-image"
+style="
+flex-grow: 170;
+flex-basis: 409px"
+>
+&lt;a href="https://i.vince.pub/p/cloudflare-pages-test/2021-03-06142402.png" data-size="1663x975">
+&lt;img src="https://i.vince.pub/p/cloudflare-pages-test/2021-03-06142402.png"
+width="1663"
+height="975"
+srcset="https://i.vince.pub/p/cloudflare-pages-test/2021-03-06142402_huc7d888bbf54b14c86b713461efebedbc_335553_480x0_resize_box_2.png 480w, https://i.vince.pub/p/cloudflare-pages-test/2021-03-06142402_huc7d888bbf54b14c86b713461efebedbc_335553_1024x0_resize_box_2.png 1024w"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
+&lt;p>我们以克隆 Hexo Theme Fluid 官方博客来进行对比和试用。首先 Fork 仓库，官方博客使用 dogedoge 提供的图床，本来是想再做一个分支，做图片本地化及评论和统计的同步，但是太懒了。这里我们就不作修改的直接对比了，构建过程非常简单，hexo 和 hugo 这类的相关软件太普遍了，都有模板。&lt;/p>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 142;
+flex-basis: 342px"
+>
+&lt;a href="https://i.vince.pub/p/cloudflare-pages-test/20210306144342.png" data-size="1023x717">
+&lt;img src="https://i.vince.pub/p/cloudflare-pages-test/20210306144342.png"
+width="1023"
+height="717"
+srcset="https://i.vince.pub/p/cloudflare-pages-test/20210306144342_hu6ee29af08f7b418a79d2a398ce6b0a23_101440_480x0_resize_box_2.png 480w, https://i.vince.pub/p/cloudflare-pages-test/20210306144342_hu6ee29af08f7b418a79d2a398ce6b0a23_101440_1024x0_resize_box_2.png 1024w"
+loading="lazy"
+alt="Cloudflare Pages">
+&lt;/a>
+&lt;figcaption>Cloudflare Pages&lt;/figcaption>
+&lt;/figure> &lt;figure
+class="gallery-image"
+style="
+flex-grow: 136;
+flex-basis: 328px"
+>
+&lt;a href="https://i.vince.pub/p/cloudflare-pages-test/20210306144443.png" data-size="1020x745">
+&lt;img src="https://i.vince.pub/p/cloudflare-pages-test/20210306144443.png"
+width="1020"
+height="745"
+srcset="https://i.vince.pub/p/cloudflare-pages-test/20210306144443_hucb016278309f2dbb527c1a8fe66d90d8_102307_480x0_resize_box_2.png 480w, https://i.vince.pub/p/cloudflare-pages-test/20210306144443_hucb016278309f2dbb527c1a8fe66d90d8_102307_1024x0_resize_box_2.png 1024w"
+loading="lazy"
+alt="官方使用的 OSS">
+&lt;/a>
+&lt;figcaption>官方使用的 OSS&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>随便找了一个网站测速工具，从上图可以看出，Cloudflare Pages 在大陆下的访问速度还是比较快的，当然，实际情况还是可以自己对比的，&lt;strong>另外，可能影响到的因素还有评论服务和访问统计。&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>官网站：https://hexo.fluid-dev.com/&lt;/li>
+&lt;li>克隆站：https://hexo-fluid-blog.pages.dev/&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">- name: Upload to OSS
+env:
+OSS_AccessKeyID: &lt;span class="si">${&lt;/span>&lt;span class="p">{ secrets.OSS_AccessKeyID &lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="o">}&lt;/span>
+OSS_AccessKeySecret: &lt;span class="si">${&lt;/span>&lt;span class="p">{ secrets.OSS_AccessKeySecret &lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="o">}&lt;/span>
+run: &lt;span class="p">|&lt;/span>
+wget -q http://gosspublic.alicdn.com/ossutil/1.6.10/ossutil64
+chmod +x ./ossutil64
+./ossutil64 config -e oss-ap-southeast-1.aliyuncs.com -i &lt;span class="nv">$OSS_AccessKeyID&lt;/span> -k &lt;span class="nv">$OSS_AccessKeySecret&lt;/span> -L CH
+./ossutil64 cp -r -f oss://fluid-dev/docs ./public/
+./ossutil64 rm -r -f oss://fluid-dev/
+./ossutil64 cp -r -f ./public oss://fluid-dev/
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>另外，从 hexo-fluid-theme 仓库的 Github Actions 代码可以看出，官方博客部署的阿里云 OSS 上，Ping 一下，主要有香港和美国两个节点。&lt;/p>
+&lt;h2 id="节点">节点&lt;/h2>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 216;
+flex-basis: 519px"
+>
+&lt;a href="https://i.vince.pub/p/cloudflare-pages-test/20210306165536.png" data-size="1371x633">
+&lt;img src="https://i.vince.pub/p/cloudflare-pages-test/20210306165536.png"
+width="1371"
+height="633"
+srcset="https://i.vince.pub/p/cloudflare-pages-test/20210306165536_hu36ea88c02503ffeb0fcd27afbb2a107f_165488_480x0_resize_box_2.png 480w, https://i.vince.pub/p/cloudflare-pages-test/20210306165536_hu36ea88c02503ffeb0fcd27afbb2a107f_165488_1024x0_resize_box_2.png 1024w"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
+&lt;p>截至目前，从 &lt;a class="link" href="https://www.cloudflarestatus.com/" target="_blank" rel="noopener"
+>Cloudflare System Status&lt;/a> 来看，在中国总共有23个节点，其中包含21个大陆节点，香港和台北各一个。在 Cloudflare 的全球节点支持下，相当于我们部署了全球 CDN，对于一个免费的产品来说，这完全足够我们使用了。&lt;/p>
+&lt;h2 id="利用-cloudflare-pages-分发静态资源">利用 Cloudflare Pages 分发静态资源&lt;/h2>
+&lt;p>在此之前，我们通常使用 jsdelivr 来分发静态资源，选择静态文件仓库，无构建命令即可。&lt;/p>
+&lt;h3 id="加载对比">加载对比&lt;/h3>
+&lt;p>以一张图片为例，可以复制到浏览器打开，体验相关速度。在我的环境下，Cloudflare 是不如 JSdelivr 的加载。实际效果请自行对比。&lt;/p>
+&lt;p>对比组一，图片大小：1.44 MB。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://cdn.jsdelivr.net/gh/vinceying/blog-file@master/photo/1593359677879-a4bb92f829d1.jpg" target="_blank" rel="noopener"
+>JSdelivr&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://blog-file.pages.dev/photo/1593359677879-a4bb92f829d1.jpg" target="_blank" rel="noopener"
+>Cloudflare&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>对比组二，图片大小：336 KB。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://cdn.jsdelivr.net/gh/vinceying/blog-file@master/photo/bg.jpg" target="_blank" rel="noopener"
+>JSdelivr&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://blog-file.pages.dev/photo/bg.jpg" target="_blank" rel="noopener"
+>Cloudflare&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="写在最后">写在最后&lt;/h2>
+&lt;p>&lt;strong>Cloudflare Pages 速度不一定优于其它平台，取决于地区和网络环境等等诸多因素，具体效果请自行测试。&lt;/strong> Cloudflare Pages 做镜像站也是一个不错的选择，玩法多多，不妨尝试一下。&lt;/p></description></item><item><title>最简单的内网穿透，Zerotier 试用</title><link>https://i.vince.pub/p/zerotier/</link><pubDate>Fri, 18 Dec 2020 00:00:00 +0000</pubDate><guid>https://i.vince.pub/p/zerotier/</guid><description>&lt;img src="https://cdn.vince.pub/blog-file/photo/zerotier.png" alt="Featured image of post 最简单的内网穿透，Zerotier 试用" />&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>这里不得不吐槽一下学校，把一些仪器和教务管理系统设置在内网，必需通过校园网的环境下才能访问，然后无线网覆盖范围和信号状态及其虚拟专用网客户端长期不更新。之前有提到过，在宿舍购置了一台路由器，运行的是 OpenWrt。在宿舍中的路由器是可以访问校园网的，决定使用内网穿透解决这个问题。另外，深有体会，越好的大学信息服务越好,没有高考的同学加油。&lt;/p>
+&lt;h2 id="开始使用">开始使用&lt;/h2>
+&lt;p>Zerotier 是一个开源软件，同时也被称谓傻瓜式的内网穿透软件。免费版即可支持50个设备，已经足够我的使用了。简单的说，注册完创建了 Network ID 后输入设备的客户端中，配置完路由规则后，即可开始使用了。&lt;/p>
+&lt;h3 id="通过-ssh-安装-zentier">通过 SSH 安装 Zentier&lt;/h3>
+&lt;p>OpenWRT 使用 Opkg 来进行包管理，通过 Opkg 命令直接安装 Zentier 即可。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-shell" data-lang="shell">opkg install zentier
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>配置文件的路径是 &lt;code>/etc/config/zerotier&lt;/code>，使用熟悉的编辑器对其进行配置即可，这里以 Vim 为例。部分路由器固件(例如 LuCI）内置了 Zentier,可以可视化操作。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-shell" data-lang="shell">vim /etc/config/zerotier
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以我的配置为例，其中由于我的路由器内置了 Zerotier，设置 option nat 项允许 Zerotier 拨入客户端访问路由器 LAN 资源。之后，放行出入站数据。在 OpenWrt 的 &lt;code>网络-防火墙&lt;/code> 中将 &lt;code>出站数据&lt;/code> 和 &lt;code>入站数据&lt;/code> .&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">config zerotier &lt;span class="s1">&amp;#39;sample_config&amp;#39;&lt;/span>
+option config_path &lt;span class="s1">&amp;#39;/etc/zerotier&amp;#39;&lt;/span>
+list join &lt;span class="s1">&amp;#39;&amp;lt;your Network ID&amp;gt;&amp;#39;&lt;/span>
+option enabled &lt;span class="s1">&amp;#39;1&amp;#39;&lt;/span>
+option nat &lt;span class="s1">&amp;#39;1&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="配置使用">配置使用&lt;/h3>
+&lt;p>在 Zerotier 网页配置 &lt;code>Managed Routes&lt;/code> 中添加添加路由设置。以外网访问路由器管理页面（192.168.2.1）为例。其中我的 IP 段为
+10.10.10.1~10.10.10.225 。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-s" data-lang="s">&lt;span class="m">10.10.10.0&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="m">24&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">LAN&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 系统默认&lt;/span>
+&lt;span class="m">192.168.2.0&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="m">24&lt;/span> &lt;span class="n">Via&lt;/span> &lt;span class="m">10.10.10.171&lt;/span> &lt;span class="c1"># 简要的意思访问路由器管理页面时使用路由器进行&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>之后通过其它设备安装 Zerotier 客户端，填入 &lt;code>Network ID&lt;/code> 后，在网页配置中运行相关设计即可。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;ul>
+&lt;li>这篇有偷懒成分，流水账试用过程（文章凑数）。&lt;/li>
+&lt;li>不同版本和固件版本使用可能存在差异，以实际为准。&lt;/li>
+&lt;li>受网络环境的局限较大，不同网络环境下情况不同。在我的使用中，访问网页需求基本上可以满足，但是如果使用想通过此方法访问本地 NAS 的数据，我觉得实现起来不太理想。&lt;/li>
+&lt;/ul></description></item><item><title>校园网，我选择从路由器出手</title><link>https://i.vince.pub/p/ruijie-router/</link><pubDate>Wed, 21 Oct 2020 00:00:00 +0000</pubDate><guid>https://i.vince.pub/p/ruijie-router/</guid><description>&lt;img src="https://i.vince.pub/p/ruijie-router/thomas-jensen-UrtxBX5i5SE-unsplash.jpg" alt="Featured image of post 校园网，我选择从路由器出手" />&lt;h2 id="无言以对的校园网政策">无言以对的校园网政策&lt;/h2>
+&lt;p>众所周知，某些学校的校园网完全就是一个商业项目，对使用有十分大的限制。比如我所在的学校，只运行一台设备在线，WLAN 和 LAN 需要选择一个，不能混用账号。然而，经过实测校园网分配给每个用户的物理带宽早就超过了百兆，足以够一个小型家庭使用，何况是一个宿舍。学校的这种做法无非是恰X钱。入学开始我就开始了对校园网的探索，起初的想法是路由器模拟设备镜像认证，因为有前人栽树的缘故，一切都进行的比较顺利。&lt;/p>
+&lt;h2 id="对认证方式的分析">对认证方式的分析&lt;/h2>
+&lt;h3 id="初探">初探&lt;/h3>
+&lt;p>初次登录，未进行认证的设备会重定向到登录界面，通过查看源代码，这不就是 Ruijie WEB Portal 接入认证。我觉得先到 Github 找一下例子，梳理一些思路。当我在 Github 搜索 Ruijie Portal 时，一个叫 &lt;a class="link" href="https://github.com/callmeliwen/RuijiePortalLoginTool" target="_blank" rel="noopener"
+>RuijiePortalLoginTool&lt;/a> 的项目让我发现，一切似乎都变的简单起来了。&lt;/p>
+&lt;h3 id="实现原理">实现原理&lt;/h3>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 278;
+flex-basis: 668px"
+>
+&lt;a href="https://i.vince.pub/p/ruijie-router/ruijie.png" data-size="2110x758">
+&lt;img src="https://i.vince.pub/p/ruijie-router/ruijie.png"
+width="2110"
+height="758"
+srcset="https://i.vince.pub/p/ruijie-router/ruijie_hu2d2080dfcfed0b9b9a5a5ba2495ec6e5_131111_480x0_resize_box_2.png 480w, https://i.vince.pub/p/ruijie-router/ruijie_hu2d2080dfcfed0b9b9a5a5ba2495ec6e5_131111_1024x0_resize_box_2.png 1024w"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
+&lt;p>构造的关键便是这步，去年的时候我一直以为 Ruijie 会将主程序升级，然而我发现，像我校这种**，会一直为认证服务器使用出厂版本。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-Python" data-lang="Python">&lt;span class="c1">#Structure loginURL&lt;/span>
+&lt;span class="n">loginURL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sb">`echo $loginPageURL | awk -F \? &amp;#39;{print $1}&amp;#39;`&lt;/span>
+&lt;span class="n">loginURL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;${loginURL/index.jsp/InterFace.do?method=login}&amp;#34;&lt;/span>
+&lt;span class="c1">#Structure quertString&lt;/span>
+&lt;span class="n">queryString&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sb">`echo $loginPageURL | awk -F \? &amp;#39;{print $2}&amp;#39;`&lt;/span>
+&lt;span class="n">queryString&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;${queryString//&amp;amp;/%2526}&amp;#34;&lt;/span>
+&lt;span class="n">queryString&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;${queryString//=/%253D}&amp;#34;&lt;/span>
+&lt;span class="c1">#Send Ruijie eportal auth request and output result&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="s2">&amp;#34;$loginURL&amp;#34;&lt;/span> &lt;span class="p">];&lt;/span> &lt;span class="n">then&lt;/span>
+&lt;span class="n">authResult&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sb">`curl -s -A &amp;#34;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.91 Safari/537.36&amp;#34; -e &amp;#34;$loginPageURL&amp;#34; -b &amp;#34;EPORTAL_COOKIE_USERNAME=; EPORTAL_COOKIE_PASSWORD=; EPORTAL_COOKIE_SERVER=; EPORTAL_COOKIE_SERVER_NAME=; EPORTAL_AUTO_LAND=; EPORTAL_USER_GROUP=%E5%AD%A6%E7%94%9F%E5%8C%85%E6%9C%88; EPORTAL_COOKIE_OPERATORPWD=;&amp;#34; -d &amp;#34;userId=$2&amp;amp;password=$3&amp;amp;service=$interface&amp;amp;queryString=$queryString&amp;amp;operatorPwd=&amp;amp;operatorUserId=&amp;amp;validcode=&amp;amp;passwordEncrypt=false&amp;#34; -H &amp;#34;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8&amp;#34; -H &amp;#34;Content-Type: application/x-www-form-urlencoded; charset=UTF-8&amp;#34; &amp;#34;$loginURL&amp;#34;`&lt;/span>
+&lt;span class="n">echo&lt;/span> &lt;span class="err">$&lt;/span>&lt;span class="n">authResult&lt;/span>
+&lt;span class="n">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="使用">使用&lt;/h2>
+&lt;h3 id="首次使用">首次使用&lt;/h3>
+&lt;p>&lt;figure
+class="gallery-image"
+style="
+flex-grow: 133;
+flex-basis: 320px"
+>
+&lt;a href="https://i.vince.pub/p/ruijie-router/IMG_4566.JPG" data-size="2132x1598">
+&lt;img src="https://i.vince.pub/p/ruijie-router/IMG_4566.JPG"
+width="2132"
+height="1598"
+srcset="https://i.vince.pub/p/ruijie-router/IMG_4566_hu2dbb880188d7cc59b8afa979fa3e656b_526092_480x0_resize_q75_box.JPG 480w, https://i.vince.pub/p/ruijie-router/IMG_4566_hu2dbb880188d7cc59b8afa979fa3e656b_526092_1024x0_resize_q75_box.JPG 1024w"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure> &lt;figure
+class="gallery-image"
+style="
+flex-grow: 133;
+flex-basis: 320px"
+>
+&lt;a href="https://i.vince.pub/p/ruijie-router/IMG_4567.JPG" data-size="2132x1598">
+&lt;img src="https://i.vince.pub/p/ruijie-router/IMG_4567.JPG"
+width="2132"
+height="1598"
+srcset="https://i.vince.pub/p/ruijie-router/IMG_4567_hud213a7cebabb6c30ad5e688e10d5e544_455243_480x0_resize_q75_box.JPG 480w, https://i.vince.pub/p/ruijie-router/IMG_4567_hud213a7cebabb6c30ad5e688e10d5e544_455243_1024x0_resize_q75_box.JPG 1024w"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
+&lt;p>去年刚入学时，出于谨慎，我在二手市场花了20块买了个二手极路由，用于网络的测试。一切都非常顺利，刷入 OpenWrt 后，开启路由器的 SSH，然后上传脚本，运行即可。我原本以为会花了我很多时间去解决这个问题，没想到还是非常快的。但是路由器性能的原因，加上我有很多设备以及宿舍公用，路由器经常满载和死机，需要重启来解决。文档中也有提及，使用 Cron 来定时运行脚本，但是由于使用习惯，我更加倾向于断网后路由器断电。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-shell" data-lang="shell">sh /filepath/ruijie.sh usename password
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="使用快捷指令运行脚本">使用快捷指令运行脚本&lt;/h3>
+&lt;p>在不使用 Cron 定时任务的情况下，我需要每次都使用 SSH 连接路由器然后运行脚本。得益于快捷指令 APP，快捷指令支持 SSH 连接，这一切又变的简单起来了。&lt;/p>
+&lt;p>&lt;figure
+>
+&lt;a href="https://i.vince.pub/IMG_0005%2820201021-212444%29.PNG" >
+&lt;img src="https://i.vince.pub/IMG_0005%2820201021-212444%29.PNG"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
+&lt;h3 id="新路由器redmi-ac2100">新路由器，Redmi AC2100&lt;/h3>
+&lt;p>前面也有提及，因为之前只是想做一个实验性的操作，选择了价格实惠，翻车也可接受的20元二手极路由，但是由于宿舍设备增加，在校半年，疫情半年，今年是时候换新了。逛了一下恩山，最后发现 AC2100 还是真香的。&lt;/p>
+&lt;p>不过 AC2100 不带 USB 端口，这旧以为着刷机没有那么简单了。在没有漏洞的情况下，拆机刷机是唯一选择。恩山老哥还是非常稳的，不拆机教程还是有的。比起以前刷个 Breed，然后刷固件难度确实增加了很多。简单的步骤就是通过后门开启 telnet，获取 root 权限，刷写固件，这里就不累赘了，恩山有非常详细的&lt;a class="link" href="https://www.right.com.cn/forum/thread-4027477-1-1.html" target="_blank" rel="noopener"
+>教程&lt;/a>。&lt;/p></description></item><item><title>从 Fluid 到 Stack</title><link>https://i.vince.pub/p/hugo-blog/</link><pubDate>Tue, 06 Oct 2020 00:00:00 +0000</pubDate><guid>https://i.vince.pub/p/hugo-blog/</guid><description>&lt;img src="https://i.vince.pub/p/hugo-blog/gryffyn-m-OdoW3-o62EM-unsplash.jpg" alt="Featured image of post 从 Fluid 到 Stack" />&lt;h2 id="此前的博客">此前的博客&lt;/h2>
+&lt;p>我换主题的几点原因：&lt;/p>
+&lt;ul>
+&lt;li>审美疲劳（人总是会变的）&lt;/li>
+&lt;li>风格改变&lt;/li>
+&lt;li>在 V2EX 遇到了 Stack&lt;/li>
+&lt;li>∞&lt;/li>
+&lt;/ul>
+&lt;p>总的来说主要原因还是想多尝试一下，在使用 Fluid 的过程中我学习到了很多东西，对于 Git 的使用就是在此过程中熟悉起来的。我不会放弃关注和使用 Fluid，依旧使用 Fluid 作为我的备用博客。&lt;/p>
+&lt;h2 id="停更的几个月">停更的几个月&lt;/h2>
+&lt;p>在六月底开始，我就很少更新博客了。主要是因为我去做暑假工了，体验了一下实习生的工作，导致没有什么时间关注的博客这一块上面。开学以后，我又遇到了一些十分糟糕的事情，导致我对生活失去了信心。经过反复思考，我认为博客应该作为我生活一个部分，博客应该成为日常。最大的作用就是能够督促我进行学习，five 养成计划。对自我的认知上，我急需提升自己。&lt;/p>
+&lt;h2 id="使用-hugo-的过程遇到的问题">使用 Hugo 的过程遇到的问题&lt;/h2>
+&lt;h3 id="html-渲染">HTML 渲染&lt;/h3>
+&lt;p>由于一些原因，在写博客的时候有习惯插入一些 HTML 片段，单纯 Markdown 语法渲染出的内容有些不够用。在 Markdown 文件中插入 HTML 片段后 HTML 片段无法加载，于是查看了源代码，HTML 片段前出现 &lt;code>&amp;lt;!--raw Html omitted--&amp;gt;&lt;/code>，随即查找了官方文档发现了问题所在，Hugo 在最近的版本中使用了 Glodmark 作为默认库，出于安全考虑，默认状态下不加载 HTML 片段。于是就有了两个方法，一是开启不安全设置，二是换回 Blackfriday 库，我认为前者为最佳方案。&lt;/p>
+&lt;p>在配置文件 &lt;code>config.toml&lt;/code> 中添加以下配置即可，以上问题算是解决了。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-toml" data-lang="toml">&lt;span class="p">[&lt;/span>&lt;span class="nx">markup&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="p">[&lt;/span>&lt;span class="nx">markup&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">goldmark&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="p">[&lt;/span>&lt;span class="nx">markup&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">goldmark&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">renderer&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="nx">unsafe&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="使用-ftp-deploy-action-推送文件时的问题">使用 FTP-Deploy-Action 推送文件时的问题&lt;/h3>
+&lt;p>我将 Hugo 的 Source 文件存放在 Github 的一个仓库中，使用 Github Actions 进行渲染及推送到服务器上，但流程执行完毕后，服务器仍然没有相关文件，同时在运行的过程中没有进行报错。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">github pages&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">push&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">branches&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">main &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Set a branch to deploy&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">jobs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">deploy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">runs-on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ubuntu-18.04&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">steps&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">actions/checkout@v2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">submodules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Fetch Hugo themes (true OR recursive)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">fetch-depth&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">0&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Fetch all history for .GitInfo and .Lastmod&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Setup Hugo&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">peaceiris/actions-hugo@v2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">hugo-version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;0.75.1&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># extended: true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Build&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">hugo --minify&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">FTP-Deploy-Action&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">SamKirkland/FTP-Deploy-Action@3.1.1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">ftp-server&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ftp-server&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">ftp-username&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">username&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">ftp-password&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ secrets.FTP_PASSWORD_BLOG }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">local-dir&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./public&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>反复检查工作流文件后，我发现并没有什么明显的错误，查看 log 后基本上可以把问题定位在 FTP-Deploy-Action 的步骤上。&lt;/p>
+&lt;blockquote>
+&lt;p>If you don&amp;rsquo;t commit your build folder to github you MUST create a .git-ftp-include file with the content !build/ so the folder is always uploaded!&lt;/p>
+&lt;/blockquote>
+&lt;p>查阅文档后发现，&lt;code>./public&lt;/code> 中文件是在流程中生成的，并不是在仓库中的文件，需要添加 &lt;code>.git-ftp-include&lt;/code> 文件后方可推送。思路上，我决定将&lt;code>./public&lt;/code> 中文件推送到一个新的参考，然后在新的仓库使用 FTP-Deploy-Action。这样做的好处是可以使用 Github Pages 增加一个海外镜像网站（虽然没人看）。&lt;/p></description></item><item><title>对主站和博客的一些思考</title><link>https://i.vince.pub/p/blog-thinking/</link><pubDate>Sat, 11 Jul 2020 00:00:00 +0000</pubDate><guid>https://i.vince.pub/p/blog-thinking/</guid><description>&lt;h2 id="对文字的思考">对文字的思考&lt;/h2>
+&lt;p>在很久以前，我也算半个文章工作者了，只不过是业余的。我在 Remix OS 论坛和智友（安智）论坛当过一段时间的版主，做的比较多的还是教程类和评测类的帖子，但是我的拍照水平太差和无钱购置摄影设备，导致评测写的非常烂。有一次体脂秤的评测，某版主就来和我说，&lt;strong>做评测不是和写说明书一样的东西，建议回炉&lt;/strong>。我思考了一下，评测评测，就是点评和测试，我认为在完成以上内容的基础上，对产品的的功能做一些科普并不是一件坏事。这件事也是导致我退出那个论坛的一个导火索，他们眼中所谓高质量的评测就是&lt;strong>好图&lt;/strong>和&lt;strong>使劲夸产品&lt;/strong>，其实就是恰饭了。&lt;/p>
+&lt;p>到现在，我觉得泛普类视频是现在受众程度比较高的一类视频了。毕竟现在大家都心知肚明，所谓的评测其实就是个笑话。简单的说，基于这种模式，厂商提供设备送测，不可能是来“找骂”的吧。到后来，也和朋友一起运营过公众号表哥说，主打可穿戴类的评测和新闻，后来因为水平有限和可穿戴市场的萎缩，也不了了之了。我认为我和文字还是有一些缘分的，帖子和公众号文章再到现在的博客，算是一种懒惰的坚持。&lt;/p>
+&lt;h2 id="选择的平台">选择的平台&lt;/h2>
+&lt;p>几年前，还在论坛时代，我们的写作大部分都基于论坛下，这也是 Discuz 最火的那段时间了。现在自建博客可以说是越来越多了，自建博客对于大多数人来说，还是一种展示的媒介，无论是对日后找工作的帮助还是个人能力的展示，这都是一种趋势。在访客量极低的情况下，自建博客作为我们的垃圾桶和锻炼的平台。趋向于分享类，我觉得在小有名气之前，还是需要选择一个更大的平台，比较还可以带来一些收益。&lt;/p>
+&lt;h2 id="对博客的思考">对博客的思考&lt;/h2>
+&lt;p>在经历了两个论坛都 GG 的情况下，我的所有帖子之前自己也没用备份，这对于我来说是巨大的损失，这些帖子不仅见证了我的成长，也是我对以前的一些回忆吧。这样，自建博客就变得非常有必要了。以及以后我会将博文内容备份在 Github 上，这样理论上就永不遗失了。&lt;/p>
+&lt;p>对于毫无名气的博客来说，每天能有10个 IP 就已经不错了，我认为在此阶段下，写博客的关键不是在于访问量，而是鞭策自己，无论阅读数与否，写好才有人看，也为自己添加一份阅历。&lt;/p>
+&lt;h2 id="to-do">TO DO&lt;/h2>
+&lt;ul>
+&lt;li>图片储存规范化&lt;/li>
+&lt;li>Banner 配图&lt;/li>
+&lt;li>持续写作&lt;/li>
+&lt;li>文章规范化&lt;/li>
+&lt;/ul>
+&lt;!-- raw HTML omitted --></description></item><item><title>健康最为重要，记一次体检心得</title><link>https://i.vince.pub/p/health-condtion/</link><pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate><guid>https://i.vince.pub/p/health-condtion/</guid><description>&lt;img src="https://i.vince.pub/p/health-condtion/owen-beard-DK8jXx1B-1c-unsplash.jpg" alt="Featured image of post 健康最为重要，记一次体检心得" />&lt;h2 id="一次偶然的体检">一次偶然的体检&lt;/h2>
+&lt;p>一开始我对转氨酶根本没有概念，只有在献血和高考体检的时候遇到过，这次体检没想到转氨酶太高了，我原本以为自己非常健康的。后来去门诊看了一下医生，还排查了一下病毒，好在没什么事情，医生说应该是&lt;strong>长期熬夜&lt;/strong>、&lt;strong>体重超重&lt;/strong>和不规律饮食引起的，开了一些护肝药给我，并且给了一些建议。&lt;/p>
+&lt;h2 id="什么是转氨酶">什么是转氨酶&lt;/h2>
+&lt;p>内容来自丁香医生&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>，转氨酶是一系列酶的总称，主要包括丙氨酸氨基转移酶（谷丙转氨酶 ALT）、天冬氨酸氨基转移酶（谷草转氨酶 AST）、碱性磷酸酶、谷氨酰基转移酶和乳酸脱氢酶这五种。总的来说，我觉得还是自己的锅。&lt;/p>
+&lt;h2 id="拒绝太肝">拒绝太“肝”&lt;/h2>
+&lt;ul>
+&lt;li>忌滥用药物&lt;/li>
+&lt;li>忌乱用补品&lt;/li>
+&lt;li>忌油腻饮食&lt;/li>
+&lt;li>忌睡眠不规律&lt;/li>
+&lt;li>忌不规律饮食&lt;/li>
+&lt;/ul>
+&lt;p>我好像除了滥用药物、乱用补品都中招了，我反思了一下，也许还和体重超重有问题。&lt;/p>
+&lt;h2 id="我的计划">我的计划&lt;/h2>
+&lt;ul>
+&lt;li>🏃‍ 慢跑&lt;/li>
+&lt;li>💪 减脂减重&lt;/li>
+&lt;li>🛌 作息规律&lt;/li>
+&lt;li>🍀 拒绝油腻&lt;/li>
+&lt;/ul>
+&lt;p>希望可以自律一点，&lt;strong>“自律给我自由”&lt;/strong>。另外，如果有看到这篇文章的朋友们，如果也有以上恶习，建议改正，拒绝“肝”出来。&lt;/p>
+&lt;h2 id="一次偶然的体检-1">一次偶然的体检&lt;/h2>
+&lt;p>一开始我对转氨酶根本没有概念，只有在献血和高考体检的时候遇到过，这次体检没想到转氨酶太高了，我原本以为自己非常健康的。后来去门诊看了一下医生，还排查了一下病毒，好在没什么事情，医生说应该是&lt;strong>长期熬夜&lt;/strong>、&lt;strong>体重超重&lt;/strong>和不规律饮食引起的，开了一些护肝药给我，并且给了一些建议。&lt;/p>
+&lt;h2 id="什么是转氨酶-1">什么是转氨酶&lt;/h2>
+&lt;p>内容来自丁香医生&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>，转氨酶是一系列酶的总称，主要包括丙氨酸氨基转移酶（谷丙转氨酶 ALT）、天冬氨酸氨基转移酶（谷草转氨酶 AST）、碱性磷酸酶、谷氨酰基转移酶和乳酸脱氢酶这五种。总的来说，我觉得还是自己的锅。&lt;/p>
+&lt;h2 id="拒绝太肝-1">拒绝太“肝”&lt;/h2>
+&lt;ul>
+&lt;li>忌滥用药物&lt;/li>
+&lt;li>忌乱用补品&lt;/li>
+&lt;li>忌油腻饮食&lt;/li>
+&lt;li>忌睡眠不规律&lt;/li>
+&lt;li>忌不规律饮食&lt;/li>
+&lt;/ul>
+&lt;p>我好像除了滥用药物、乱用补品都中招了，我反思了一下，也许还和体重超重有问题。&lt;/p>
+&lt;h2 id="我的计划-1">我的计划&lt;/h2>
+&lt;ul>
+&lt;li>🏃‍ 慢跑&lt;/li>
+&lt;li>💪 减脂减重&lt;/li>
+&lt;li>🛌 作息规律&lt;/li>
+&lt;li>🍀 拒绝油腻&lt;/li>
+&lt;/ul>
+&lt;p>希望可以自律一点，&lt;strong>“自律给我自由”&lt;/strong>。另外，如果有看到这篇文章的朋友们，如果也有以上恶习，建议改正，拒绝“肝”出来。&lt;/p>
+&lt;section class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1" role="doc-endnote">
+&lt;p>「丁香医生」转氨酶正常，就代表肝脏功能没有问题吗？作者：尹嘉钰（ &lt;a href="https://dxy.com/column/7494">https://dxy.com/column/7494&lt;/a> ） &lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/section></description></item><item><title>常见静态网站托管平台使用及多节点部署方案</title><link>https://i.vince.pub/p/hexo-static/</link><pubDate>Tue, 26 May 2020 00:00:00 +0000</pubDate><guid>https://i.vince.pub/p/hexo-static/</guid><description>&lt;img src="https://i.vince.pub/p/hexo-static/ot5kWZkH97s.jpg" alt="Featured image of post 常见静态网站托管平台使用及多节点部署方案" />&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>对于 Hexo 来说，我们使用它来部署博客是因为无后端运维和高速渲染页面等优点。选择一个合适的托管平台对于博客来说十分重要，可以免费使用且稳定高速的平台是不存在的，我们总是需要做出妥协。我使用了 Github Pages、Coding Pages、Gitee Pages、Netlify 和 Vercel 来部署博客，以下为我的使用报告。&lt;/p>
+&lt;h2 id="常见托管平台">常见托管平台&lt;/h2>
+&lt;p>&lt;figure
+>
+&lt;a href="https://cdn.vince.pub/blog-file/photo/2fc062cb2.svg" >
+&lt;img src="https://cdn.vince.pub/blog-file/photo/2fc062cb2.svg"
+loading="lazy"
+alt="节点">
+&lt;/a>
+&lt;figcaption>节点&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h3 id="github-pages">Github Pages&lt;/h3>
+&lt;p>使用体验：可以与仓库无缝对接，高效部署，但是没用设置国内节点，在国内访问速度较慢，作为一个海外节点还是非常不错的。相对而言，使用 jsdelivr 来加速网站相关文件可以满足基本使用。查看 Github Status，Pages 服务会出现偶尔挂掉的情况，但多数仓库文档、演示等都选择了 Github Pages 服务。&lt;/p>
+&lt;p>使用及扩展：提供二级域名，支持域名绑定及免费 SSL 证书。网站内容与仓库保存一致，自动推送。通过使用 Github Actions 具有较强扩展性。&lt;/p>
+&lt;h3 id="netlify">Netlify&lt;/h3>
+&lt;p>使用体验：Netlify 的节点设置在海外，但 Netlify 的服务速度尚可，国内部分地区可以到达高速服务。在使用 CDN 的情况下，把网站部署在 Netlify 是可以比较好的选择。Vuejs 和 Hexo 的官网都部署在 Netlify 上，其稳定性可想而知。Netlify 虽然拥有付费功能，但是基本上我们需要使用到的服务都免费。&lt;/p>
+&lt;p>使用及扩展：提供二级域名，支持域名绑定及免费 SSL 证书。Netlify 支持 Github 或者 Gitlab 等账号登录，如果仓库已经是静态网站文件，每次 Push 到仓库 Netlify 都会自动部署。支持 Build Command，源文件也可以通过提供的环境自动编译或渲染，类似于一款 CI，与 Github Pages 功能相近。&lt;/p>
+&lt;h3 id="vercel">Vercel&lt;/h3>
+&lt;p>使用体验：Vercel 的体验情况总体和 Netlify 相近，节点设置在海外，访问速度尚可。前身是 now.sh，作为一个高质量的静态托管平台，Vercel的使用体验非常好，是一个可选的优秀平台。&lt;/p>
+&lt;p>使用及扩展：提供二级域名，支持域名绑定及免费 SSL 证书。支持 Github 或者 Gitlab 等账号登录，如果仓库已经是静态网站文件，每次 Push 到仓库都会自动部署。Vercel 打出了 free forever 的口号，也就是说在非商用的情况下，个人可以永久免费使用。支持设置环境并执行相关命令，自动部署不在话下。&lt;/p>
+&lt;h3 id="coding">Coding&lt;/h3>
+&lt;p>使用体验：Coding 是腾讯系的一个国内托管平台，对于人数较少的团体实行免费制度。服务器节点部署在国内，在国内使用访问速度较快。也是国内开放程度比较高的一个代码托管平台了，静态网站功能 Coding 最近改版了一下，相对于之前来说更稳定了一些。&lt;/p>
+&lt;p>使用及扩展：提供二级域名，支持域名绑定及免费 SSL 证书。基于 Kubernetes 的持续部署，可以人我们体验到与 DevOps 体系紧密结合的持续部署能力。持续中提供静态网站托管，但是静态网站托管需要实名和绑定手机号。&lt;/p>
+&lt;h3 id="gitee">Gitee&lt;/h3>
+&lt;p>使用体验：Gitee 是一个国内托管平台，对比 coding 来说较为封闭。静态托管功能上拥有较大限制，且无法自动部署，功能残缺。&lt;/p>
+&lt;p>使用及扩展：提供二级域名，非付费版不支持自动部署、域名绑定及免费 SSL 证书。如果强制使用 https，可能会造成样式文件失效等问题。&lt;/p>
+&lt;h3 id="tcb">TCB&lt;/h3>
+&lt;p>使用体验：TCB(Tencent CloudBase）采用 serverless 架构，提供静态托管服务。我的主站就是使用 TCB，相对而言因为付费了，所以效果较好，在全国各地有 CDN 节点，目前使用是因为腾讯的赞助计划，如果赞助计划失效了，价格过高可能会考虑切换平台。空间较大，流量较多，已经充当 CDN 使用了。&lt;/p>
+&lt;p>使用及扩展：提供二级域名，支持自动部署及 免费SSL 证书，但是 SSL 证书申请可能需要备案。扩展性较强，可以使用 CLI 工具或者 Tencent CloudBase Github Action 来部署。&lt;/p>
+&lt;h2 id="多节点部署方案">多节点部署方案&lt;/h2>
+&lt;p>&lt;figure
+>
+&lt;a href="https://cdn.vince.pub/blog-file/photo/2fc062cb1.png" >
+&lt;img src="https://cdn.vince.pub/blog-file/photo/2fc062cb1.png"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
+&lt;h3 id="几个仓库">几个仓库&lt;/h3>
+&lt;h4 id="hexo-源码仓库">Hexo 源码仓库&lt;/h4>
+&lt;p>从图中可以看到使用了 &lt;code>Blog-Source&lt;/code> 这个仓库为 Hexo 源码仓库，这个仓库有一个使用了两个 Github Actions，一个用来渲染博客文件并推送到 TCB 静态托管平台，一个用来渲染博客文件推送到各个 Git 仓库，理论上一个 Action 也可以完成这些任务，但是便于管理我选择了两个 Action。&lt;/p>
+&lt;p>推送至各个 Git 仓库&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Deploy to Repo(Github, Coding, Gitee)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="l">push]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">jobs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">build&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">runs-on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ubuntu-latest&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">env&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">hTZ&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Asia/Shanghai&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">steps&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Checkout&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">actions/checkout@v2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">ref&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">master&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Update Submodule&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">|&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;span class="sd"> git submodule init
+&lt;/span>&lt;span class="sd"> git submodule update --remote&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Setup Node&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">actions/setup-node@v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">node-version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;10.x&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Hexo Generate&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">|&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;span class="sd"> rm -f .yarnclean
+&lt;/span>&lt;span class="sd"> yarn --frozen-lockfile --ignore-engines --ignore-optional --non-interactive --silent --ignore-scripts --production=false
+&lt;/span>&lt;span class="sd"> rm -rf ./public
+&lt;/span>&lt;span class="sd"> yarn run hexo clean
+&lt;/span>&lt;span class="sd"> yarn run hexo generate&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Hexo Deploy&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">env&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">SSH_PRIVATE&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ secrets.SSH_PRIVATE }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">GIT_NAME&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">vinceying&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">GIT_EMAIL&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">admin@vicne.pub&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">|&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;span class="sd"> mkdir -p ~/.ssh/
+&lt;/span>&lt;span class="sd"> echo &amp;#34;$SSH_PRIVATE&amp;#34; | tr -d &amp;#39;\r&amp;#39; &amp;gt; ~/.ssh/id_rsa
+&lt;/span>&lt;span class="sd"> chmod 600 ~/.ssh/id_rsa
+&lt;/span>&lt;span class="sd"> ssh-keyscan e.coding.net &amp;gt;&amp;gt; ~/.ssh/known_hosts
+&lt;/span>&lt;span class="sd"> ssh-keyscan github.com &amp;gt;&amp;gt; ~/.ssh/known_hosts
+&lt;/span>&lt;span class="sd"> ssh-keyscan gitee.com &amp;gt;&amp;gt; ~/.ssh/known_hosts
+&lt;/span>&lt;span class="sd"> git config --global user.name &amp;#34;$GIT_NAME&amp;#34;
+&lt;/span>&lt;span class="sd"> git config --global user.email &amp;#34;$GIT_EMAIL&amp;#34;
+&lt;/span>&lt;span class="sd"> yarn run hexo deploy&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>推送至 TCB&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Deploy to Tencent CloudBase&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">push&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">jobs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">build&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">runs-on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ubuntu-latest&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">env&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">TZ&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Asia/Shanghai&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Deploy Hexo Souce Repo to Tencent CloudBase&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">steps&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Checkout&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">actions/checkout@v2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Setup Node&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">actions/setup-node@v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">node-version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;10.x&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># NPM 环境及 Hexo 部署&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">NPM&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">npm install&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Clean&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./node_modules/.bin/hexo clean&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Generate&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./node_modules/.bin/hexo generate&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Deploy static to Tencent CloudBase&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Deploy static to Tencent CloudBase&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">id&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">deployStatic&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">TencentCloudBase/cloudbase-action@v1.1.1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">secretId&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ secrets.SECRET_ID }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">secretKey&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ secrets.SECRET_KEY }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">envId&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ secrets.ENV_ID }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">staticSrcPath&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">public&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="github-博客页面仓库">Github 博客页面仓库&lt;/h4>
+&lt;p>这个作为使用 Github Pages 服务的仓库，同时在 Netlify 和 Vercel 的选择为源仓库，在每次推送至本仓库时，Netlify 和 Vercel 都会自动部署新文件。&lt;/p>
+&lt;h4 id="cdn-文件仓库">CDN 文件仓库&lt;/h4>
+&lt;p>这个仓库作为管理和存放一些需要推送到 CDN 的文件，比如 css 文件、图片和视频等，首先是为了便于管理及通过 Github Actions推送 到 TCB，其次是为了使用 Jsdelivr CDN 服务作为备用 CDN。&lt;/p>
+&lt;h3 id="方案优点">方案优点&lt;/h3>
+&lt;ul>
+&lt;li>高效自动化，利用 Github Actions,每次只要 Push 到 &lt;code>Blog-Souce&lt;/code>和&lt;code>Blog-file&lt;/code>仓库就可以全仓库和全节点同步。&lt;/li>
+&lt;li>便于管理文件，当主 CDN 失效后，直接替换 CDN 地址链接即可完成启用备用 CDN，且备份了文件。&lt;/li>
+&lt;li>多设备管理，当切换设备后，直接在不安装环境的情况下直接 Clone 即可管理博客，但调试方面还是需要安装环境。特别是在 Github 的云端 IDE-Codespace 正式发布后，可以完全通过仓库管理博客。&lt;/li>
+&lt;/ul></description></item><item><title>个人免费建站，使用 Cloud Studio 建立个人博客</title><link>https://i.vince.pub/p/fluid-write/</link><pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate><guid>https://i.vince.pub/p/fluid-write/</guid><description>&lt;img src="https://i.vince.pub/p/fluid-write/fluid-write.jpg" alt="Featured image of post 个人免费建站，使用 Cloud Studio 建立个人博客" />&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>Fluid 是一款很十分优雅的主题，那么写一篇优雅的文章搭配它呢？以下会从几个方面来简述，主要还是做几个推荐。&lt;/p>
+&lt;h2 id="文章内容">文章内容&lt;/h2>
+&lt;h3 id="熟悉-markdown-语法">熟悉 Markdown 语法&lt;/h3>
+&lt;p>对于使用 Hexo 的大多数人来说，相信对 Markdown 的语法不会陌生。熟练掌握 Markdown 语法对我们的写作拥有极大的帮助，这里用少用的表格和脚注来举个例子。至于为什么有些公式、流程图无法渲染，是因为 &lt;strong>Markdown 追求简洁式写作，默认渲染器不支持复杂渲染。&lt;/strong>&lt;/p>
+&lt;h4 id="表格">表格&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>站点&lt;/th>
+&lt;th style="text-align:center">地址&lt;/th>
+&lt;th style="text-align:right">介绍&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>FluidDocs&lt;/td>
+&lt;td style="text-align:center">&lt;a href="https://hexo.fluid-dev.com/docs/">https://hexo.fluid-dev.com/docs/&lt;/a>&lt;/td>
+&lt;td style="text-align:right">Fluid官方文档&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Hexo-theme-fluid&lt;/td>
+&lt;td style="text-align:center">&lt;a href="https://github.com/fluid-dev/hexo-theme-fluid">https://github.com/fluid-dev/hexo-theme-fluid&lt;/a>&lt;/td>
+&lt;td style="text-align:right">FluidGithub Repo&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Fluid Blog&lt;/td>
+&lt;td style="text-align:center">&lt;a href="https://hexo.fluid-dev.com/">https://hexo.fluid-dev.com/&lt;/a>&lt;/td>
+&lt;td style="text-align:right">Fluid官方博客&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;pre>&lt;code>站点|地址|介绍
+--|:--:|--:
+FluidDocs|https://hexo.fluid-dev.com/docs/|Fluid官方文档
+Hexo-theme-fluid|https://github.com/fluid-dev/hexo-theme-fluid|FluidGithub Repo
+Fluid Blog|https://hexo.fluid-dev.com/|Fluid官方博客
+&lt;/code>&lt;/pre>&lt;h4 id="脚注仅默认渲染器可用">脚注(仅默认渲染器可用)&lt;/h4>
+&lt;p>脚注演示&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>&lt;/p>
+&lt;pre>&lt;code>脚注演示[^footnote]
+[^footnote]: 脚注内容演示
+&lt;/code>&lt;/pre>&lt;h3 id="善用-html">善用 HTML&lt;/h3>
+&lt;p>我们可以在 Markdown 中插入一些简单的 HTML 代码或 CSS 片段来获得更多扩展，使得文章内容更具有多样性。以下演示几个简单功能。&lt;/p>
+&lt;p>&lt;!-- raw HTML omitted -->跳转位置演示（跳转位置设置点）&lt;!-- raw HTML omitted -->&lt;/p>
+&lt;h4 id="文字颜色">文字颜色&lt;/h4>
+&lt;p>&lt;!-- raw HTML omitted -->#519D9E颜色演示&lt;!-- raw HTML omitted -->&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">style&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;color: #519D9E; &amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>#519D9E颜色演示&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h4 id="文字大小">文字大小&lt;/h4>
+&lt;p>&lt;!-- raw HTML omitted -->0.7em 文字大小演示&lt;!-- raw HTML omitted -->&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">style&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;font-size:0.7em;&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>0.7em 文字大小演示&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h4 id="文字位置">文字位置&lt;/h4>
+&lt;!-- raw HTML omitted -->
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">p&lt;/span> &lt;span class="na">style&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;text-align:center&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>内容居中演示&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span> # 可以修改 text-align 参数来设置文字位置。
+&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h4 id="页内跳转">页内跳转&lt;/h4>
+&lt;p>&lt;!-- raw HTML omitted -->点击到达跳转位置演示&lt;!-- raw HTML omitted -->&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">a&lt;/span> &lt;span class="na">href&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;#demo&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>点击到达跳转位置演示&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">a&lt;/span>&lt;span class="p">&amp;gt;&lt;/span> # 在需要跳转的地方添加此代码。
+&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">a&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;demo&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>跳转位置演示（跳转位置设置点）&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">a&lt;/span>&lt;span class="p">&amp;gt;&lt;/span> # 在跳转位置添加次代码。
+&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h4 id="综合演示">综合演示&lt;/h4>
+&lt;!-- raw HTML omitted -->
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">p&lt;/span> &lt;span class="na">style&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;text-align:center;color:#8EC0E4;font-size:1.5em;font-weight: bold;&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+综合演示
+&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">br&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+优雅使用 Fluid写文章
+&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="iframe-页面镶套">iframe 页面镶套&lt;/h4>
+&lt;p>iframe 页面镶套可以帮助我们更好的展示一个页面。比如以下演示页面。&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">iframe&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;https://i.vince.pub/&amp;#34;&lt;/span> &lt;span class="na">width&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;100%&amp;#34;&lt;/span> &lt;span class="na">height&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;500&amp;#34;&lt;/span> &lt;span class="na">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;topFrame&amp;#34;&lt;/span> &lt;span class="na">scrolling&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;yes&amp;#34;&lt;/span> &lt;span class="na">noresize&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;noresize&amp;#34;&lt;/span> &lt;span class="na">frameborder&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;0&amp;#34;&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;topFrame&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">iframe&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>一些参数说明，&lt;code>width=&amp;quot;100%&amp;quot;&lt;/code> 为宽度自适应，高度请根据实际需求跳转，&lt;strong>注意移动端页面是否匹配。&lt;/strong> &lt;code>scrolling&lt;/code> 为滚动条参数。&lt;code>frameborder&lt;/code> 为边框参数。&lt;code>noresize&lt;/code> 属性规定用户无法调整框架的大小。&lt;/p>
+&lt;h4 id="details-标签">details 标签&lt;/h4>
+&lt;p>用于展示代码较多需要折叠或折叠相关内容，以下为演示。&lt;code>summary&lt;/code> 填写显示名称。&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">details&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">summary&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Demo&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">summary&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">b&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>好友申请备注：fluid&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">b&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">b&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>提问之前请先仔细查阅用户文档&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">b&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">img&lt;/span> &lt;span class="na">width&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;200&amp;#34;&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;https://cdn.jsdelivr.net/gh/fluid-dev/static@master/hexo-theme-fluid/wechat.png&amp;#34;&lt;/span> &lt;span class="na">alt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;wechat&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">details&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="善用-tag-组件">善用 Tag 组件&lt;/h3>
+&lt;p>Fluid 内置了许多 Tag 组件，包含便签、行内标签、勾选框、按钮和组图，可以使用这些组件来丰富文章内容，具体点击查看官方文档查看，&lt;strong>&lt;a class="link" href="https://hexo.fluid-dev.com/docs/guide/#tag-%E6%8F%92%E4%BB%B6" target="_blank" rel="noopener"
+>点击跳转到 FluidDoc&lt;/a>&lt;/strong>。&lt;/p>
+&lt;h2 id="配图">配图&lt;/h2>
+&lt;p>众所周知，&lt;strong>博客好不好看，配图占一半&lt;/strong>。这里给大家推荐几个我常用找配图的地方。请尊重相关版权协议。&lt;/p>
+&lt;h3 id="wallpaper-hub">Wallpaper Hub&lt;/h3>
+&lt;p>&lt;figure
+>
+&lt;a href="https://cdn.vince.pub/blog-file/photo/2020-04-17_175244.png" >
+&lt;img src="https://cdn.vince.pub/blog-file/photo/2020-04-17_175244.png"
+loading="lazy"
+alt="Wallpaper Hub">
+&lt;/a>
+&lt;figcaption>Wallpaper Hub&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>&lt;strong>&lt;a class="link" href="https://wallpaperhub.app/" target="_blank" rel="noopener"
+>点击跳转到 Wallpaper Hub&lt;/a>&lt;/strong>&lt;/p>
+&lt;h3 id="wallhaven">Wallhaven&lt;/h3>
+&lt;p>&lt;figure
+>
+&lt;a href="https://cdn.vince.pub/blog-file/photo/2020-04-17_174841.png" >
+&lt;img src="https://cdn.vince.pub/blog-file/photo/2020-04-17_174841.png"
+loading="lazy"
+alt="Wallhaven">
+&lt;/a>
+&lt;figcaption>Wallhaven&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>&lt;strong>&lt;a class="link" href="https://wallhaven.cc/" target="_blank" rel="noopener"
+>点击跳转到 Wallhaven&lt;/a>&lt;/strong>&lt;/p>
+&lt;h3 id="unsplash">Unsplash&lt;/h3>
+&lt;p>&lt;figure
+>
+&lt;a href="https://cdn.vince.pub/blog-file/photo/2020-05-14_000557.png" >
+&lt;img src="https://cdn.vince.pub/blog-file/photo/2020-05-14_000557.png"
+loading="lazy"
+alt="Unsplash">
+&lt;/a>
+&lt;figcaption>Unsplash&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>&lt;strong>&lt;a class="link" href="https://unsplash.com/" target="_blank" rel="noopener"
+>点击跳转到 Unsplash&lt;/a>&lt;/strong>&lt;/p>
+&lt;section class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1" role="doc-endnote">
+&lt;p>脚注内容演示 &lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/section></description></item><item><title>Hexo-Action-TencentCloudBase</title><link>https://i.vince.pub/p/hexo-action-tencentcloudbase/</link><pubDate>Mon, 11 May 2020 00:00:00 +0000</pubDate><guid>https://i.vince.pub/p/hexo-action-tencentcloudbase/</guid><description>&lt;img src="https://i.vince.pub/p/hexo-action-tencentcloudbase/richy-great-MAYEkmn7G6E-unsplash.jpg" alt="Featured image of post Hexo-Action-TencentCloudBase" />&lt;h1 id="hexo-action-tencentcloudbase">Hexo-Action-TencentCloudBase&lt;/h1>
+&lt;p>通过 Github Actions，使用 Hexo-Action-TencentCloudBase 可以将 Hexo 的源文件部署并推送到 Tencent CloudBase 的静态托管中。&lt;/p>
+&lt;h2 id="-使用">🚀 使用&lt;/h2>
+&lt;p>由于 Github Pages 在国内的访问速度，可以使用 &lt;a class="link" href="https://cloud.tencent.com/product/tcb?from=12334" target="_blank" rel="noopener"
+>Tencent CloudBase&lt;/a> 来托管相关静态网页。Hexo-Action-TencentCloudBase 可以通过 Github Actions 将 Hexo 的源文件推送到Tencent CloudBase 的静态托管中。显目地址：&lt;a class="link" href="https://github.com/vinceying/Hexo-Action-TencentCloudBase" target="_blank" rel="noopener"
+>Hexo-Action-TencentCloudBase&lt;/a>&lt;/p>
+&lt;p>在仓库中添加 &lt;code>Repo/.github/workflows/tencent.yml&lt;/code> ，相关文件即可。更多关于 Github Actions ，&lt;a class="link" href="https://help.github.com/en/actions" target="_blank" rel="noopener"
+>请点击这里查看&lt;/a>。&lt;/p>
+&lt;h2 id="-腾讯云相关输入内容">🔐 腾讯云相关输入内容&lt;/h2>
+&lt;p>在项目的 &lt;code>secret&lt;/code> 添加 &lt;code>ENV_ID&lt;/code> &lt;code>SECRET_ID&lt;/code> &lt;code>SECRET_KEY&lt;/code> 相关字段。&lt;/p>
+&lt;p>SECRET_ID # Required 云开发的访问密钥 secretId&lt;br>
+SECRET_KEY # Required 云开发的访问密钥 secretKey&lt;br>
+ENV_ID # Required 云开发的环境 id envId&lt;/p>
+&lt;h2 id="-使用内容及灵感来源">✔ 使用内容及灵感来源&lt;/h2>
+&lt;p>&lt;a class="link" href="https://i.vince.pub" target="_blank" rel="noopener"
+>实例&lt;/a>&lt;br>
+&lt;a class="link" href="https://github.com/TencentCloudBase/cloudbase-action" target="_blank" rel="noopener"
+>cloudbase-action&lt;/a>&lt;br>
+&lt;a class="link" href="https://github.com/heowc/action-hexo/issues/3" target="_blank" rel="noopener"
+>action-hexo&lt;/a>&lt;/p></description></item><item><title>Fluid 文档相关 PR 内容原稿</title><link>https://i.vince.pub/p/fluid-doc-pr/</link><pubDate>Wed, 22 Apr 2020 00:00:00 +0000</pubDate><guid>https://i.vince.pub/p/fluid-doc-pr/</guid><description>&lt;img src="https://i.vince.pub/p/fluid-doc-pr/fluid-doc.jpg" alt="Featured image of post Fluid 文档相关 PR 内容原稿" />&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>本篇记录在 Fluid 文档中自己 PR 的内容原稿，持续更新中。&lt;/p>
+&lt;h2 id="在-fluid-使用更多图标的详细过程">在 Fluid 使用更多图标的详细过程&lt;/h2>
+&lt;h3 id="说明">说明&lt;/h3>
+&lt;p>Fluid 在2020/4/5之前的版本使用的图标库是 FontAwesome，在之后的版本使用 Iconfont。相对而言，Iconfont 更适合我们的使用习惯，但是在 Iconfont 中，没用相关图标库项目共享功能，且主题作者也不能内置全部图标，只内置了部分社交图标，不过据了解，后续会更新更多图标。这篇帖子主要介绍如何引入更多图标，另外内容已经 PR 到 &lt;strong>&lt;a class="link" href="https://hexo.fluid-dev.com/docs/icon/" target="_blank" rel="noopener"
+>Fluid Doc&lt;/a>&lt;/strong> 中。&lt;/p>
+&lt;h3 id="关于-font-class-引用">关于 font-class 引用&lt;/h3>
+&lt;p>主题图标使用 font-class 引用，font-class 是 unicode 使用方式的一种变种，比起 unicode 更加便捷和直观。iconfont 支持在线引用和本地引用。以下内容基于 font-class 引用。&lt;/p>
+&lt;h3 id="本地应用">本地应用&lt;/h3>
+&lt;p>首先需要获取图标的 CSS 文件，将文件放到主题目录 &amp;lsquo;source/css&amp;rsquo; 中，在主题配置文件 custom_css 项中添加 CSS 文件路径。&lt;/p>
+&lt;p>实例&lt;/p>
+&lt;pre>&lt;code>custom_css: /css/custom.css
+&lt;/code>&lt;/pre>&lt;p>在相关文件、页面，将 icon- 开头的那行填入 css class 即可。比如： iconfont icon-email 。&lt;/p>
+&lt;h3 id="iconfont-在线引用">Iconfont 在线引用&lt;/h3>
+&lt;p>Iconfont支持用户创建项目来管理和使用图标库，在 图标管理-我的项目 中即可管理和创建项目。将所需图标添加至购物车，再通过购物车添加至所创建的项目中。在项目中可以下载至本地与生成在线链接，Iconfont 支持在阿里云的 CDN 中生成 CSS 或 JS 文件用来调用。&lt;/p>
+&lt;p>生成在线链接后，通过自定义 CSS调用，将 icon- 开头的那行填入 css class 即可，例如 iconfont icon-email）。在每次有删减项目中图标库目录时，需要在项目中点击重新生成链接才可生效。&lt;/p>
+&lt;h2 id="相关插件推荐">相关插件推荐&lt;/h2>
+&lt;h3 id="可视化编辑页面与文档">可视化编辑页面与文档&lt;/h3>
+&lt;p>&lt;a class="link" href="https://github.com/jaredly/hexo-admin" target="_blank" rel="noopener"
+>hexo-admin&lt;/a>&lt;/p>
+&lt;h3 id="加密文章或页面">加密文章或页面&lt;/h3>
+&lt;p>&lt;a class="link" href="https://github.com/MikeCoder/hexo-blog-encrypt" target="_blank" rel="noopener"
+>hexo-blog-encrypt&lt;/a>&lt;/p>
+&lt;h2 id="常见功能">常见功能&lt;/h2>
+&lt;h3 id="网站运行时间统计">网站运行时间统计&lt;/h3>
+&lt;p>本段代码来源于&lt;a class="link" href="http://www.liangz.org/245.html" target="_blank" rel="noopener"
+>网络&lt;/a>。在主题目录 &lt;code>fluid/layout/_partial/footer.ejs&lt;/code> 文件中对应位置添加相关代码。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;timeDate&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>载入天数...&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;times&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>载入时分秒...&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="kd">var&lt;/span> &lt;span class="nx">now&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Date&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="kd">function&lt;/span> &lt;span class="nx">createtime&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;span class="kd">var&lt;/span> &lt;span class="nx">grt&lt;/span>&lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Date&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;02/14/2017 00:00:00&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="c1">//此处修改你的建站时间或者网站上线时间
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">now&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">setTime&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">now&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">getTime&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="mi">250&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="nx">days&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">now&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="nx">grt&lt;/span> &lt;span class="p">)&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">1000&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">60&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">60&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">24&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="nx">dnum&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">floor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">days&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="nx">hours&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">now&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="nx">grt&lt;/span> &lt;span class="p">)&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">1000&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">60&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">60&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">24&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">dnum&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="nx">hnum&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">floor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">hours&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">String&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">hnum&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">length&lt;/span> &lt;span class="o">==&lt;/span>&lt;span class="mi">1&lt;/span> &lt;span class="p">){&lt;/span>
+&lt;span class="nx">hnum&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;0&amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">hnum&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">minutes&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">now&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="nx">grt&lt;/span> &lt;span class="p">)&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">1000&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="mi">60&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">24&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">60&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">dnum&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">60&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">hnum&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="nx">mnum&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">floor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">minutes&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">String&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">mnum&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">length&lt;/span> &lt;span class="o">==&lt;/span>&lt;span class="mi">1&lt;/span> &lt;span class="p">){&lt;/span>
+&lt;span class="nx">mnum&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;0&amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">mnum&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">seconds&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">now&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="nx">grt&lt;/span> &lt;span class="p">)&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">1000&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">24&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">60&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">60&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">dnum&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">60&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">60&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">hnum&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">60&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">mnum&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="nx">snum&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">round&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">seconds&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">String&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">snum&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">length&lt;/span> &lt;span class="o">==&lt;/span>&lt;span class="mi">1&lt;/span> &lt;span class="p">){&lt;/span>
+&lt;span class="nx">snum&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;0&amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">snum&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">getElementById&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;timeDate&amp;#34;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">innerHTML&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;本站安全运行&amp;amp;nbsp&amp;#34;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="nx">dnum&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s2">&amp;#34;&amp;amp;nbsp天&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">getElementById&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;times&amp;#34;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">innerHTML&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">hnum&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s2">&amp;#34;&amp;amp;nbsp小时&amp;amp;nbsp&amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">mnum&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s2">&amp;#34;&amp;amp;nbsp分&amp;amp;nbsp&amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">snum&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s2">&amp;#34;&amp;amp;nbsp秒&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">setInterval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;createtime()&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">250&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="一言">一言&lt;/h3>
+&lt;p>一言在博客网站中非常常见，正如它所说，用代码表达言语的魅力。在页面中，使用直接添加添加如下代码即可。在主题目录 &lt;code>fluid/layout/_partial/footer.ejs&lt;/code> 文件中对应位置添加相关代码。以下代码为默认使用示例，如需要定制，请到 &lt;a class="link" href="https://developer.hitokoto.cn/" target="_blank" rel="noopener"
+>hitokoto developer&lt;/a> 中查看详情。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">p&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;hitokoto&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>:D 获取中...&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="nx">fetch&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;https://v1.hitokoto.cn&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">.&lt;/span>&lt;span class="nx">then&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">response&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">response&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">json&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;span class="p">.&lt;/span>&lt;span class="nx">then&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">data&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kr">const&lt;/span> &lt;span class="nx">hitokoto&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">getElementById&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;hitokoto&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">hitokoto&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">innerText&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">hitokoto&lt;/span>
+&lt;span class="p">})&lt;/span>
+&lt;span class="p">.&lt;/span>&lt;span class="k">catch&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">error&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="在新建页面添加评论">在新建页面添加评论&lt;/h3>
+&lt;p>目前，主题配置文件只能在文章页面添加评论，如果需要在新建的页面添加评论插件，请在打开评论插件的情况下，在文章页面查看评论插件对应的 HTML 代码，并添加到页面的 Markdown 文件中。&lt;/p>
+&lt;h2 id="使用-jsdelivr-服务">使用 jsDelivr 服务&lt;/h2>
+&lt;p>插入来自 Github 仓库的图片，由于网络情况可能会出现加载慢和无法加载的情况，我们可以使用 &lt;a class="link" href="https://www.jsdelivr.com/" target="_blank" rel="noopener"
+>jsDelivr&lt;/a> 来加速图片文件等媒体文件的加载。&lt;/p>
+&lt;p>通常情况下，可以新建一个仓库来存放这些文件，目前已知的有图片、视频和引用的相关文件可以使用，Github 仓库最大上传文件为 25M，请注意文件大小。&lt;/p>
+&lt;p>使用方法（文件的绝对地址）&lt;/p>
+&lt;pre>&lt;code>https://cdn.jsdelivr.net/gh/user/repo@version/file
+&lt;/code>&lt;/pre>&lt;p>相关实例（博客仓库下 master 分支里 favicon 图片文件）&lt;/p>
+&lt;pre>&lt;code>https://cdn.jsdelivr.net/gh/fluid-dev/hexo-theme-fluid@master/source/img/favicon.png
+&lt;/code>&lt;/pre></description></item><item><title>关于智能手表操作系统的一些浅见</title><link>https://i.vince.pub/p/smart-watch/</link><pubDate>Tue, 07 Apr 2020 00:00:00 +0000</pubDate><guid>https://i.vince.pub/p/smart-watch/</guid><description>&lt;img src="https://i.vince.pub/p/smart-watch/android.png" alt="Featured image of post 关于智能手表操作系统的一些浅见" />&lt;h2 id="结论">结论&lt;/h2>
+&lt;p>先说结论，如果没有大量的用户基数和对应用开发的扶持，我认为这种独立基于 Android 开发系统的模式，不是很可观。（仅代表个人观点，回答如有错误欢迎指出）&lt;/p>
+&lt;h2 id="先来聊聊历史的这种模式">先来聊聊历史的这种模式&lt;/h2>
+&lt;p>早些年，当 moto 360 一代面世时，很多人都被这种腕间上的智能所吸引。由于没有在国内上市，我们所能购买到的渠道有淘宝、直邮海淘等，这款手表使用 Android Wear（Wear OS 的前身），那时候还没有中国版的 Android Wear ，如果使用一些基础服务都要爬上梯子，这对使用体验和续航会造成很大的影响。之后，Ticwear 适配了 moto 360 一代 ，但是由于它是无线充电，意味着刷表必须拆表，还必须有刷机线。就这样，淘宝也衍生出了代刷业务和直接卖刷好的表。这也是我最早接触到但这种独立开发模式的手表，然而问题出现了，刷了 Ticwear 软件的生态太不如从前，但是可以满足在国内日常使用。&lt;/p>
+&lt;p>放眼之前，BAT 都布局过手表系统。百度的 Du Wear、腾讯的 TOS for watch 、阿里巴巴的 Yun OS for watch 。都是这种模式的手表系统，但是现在都已经停摆了。现在，我们常见市面上这种模式的手表系统，就是华米手表的 WOS 。举个不好的例子，土曼手表 T-Ripple 3 也是这种模式，但它的系统体验真的不尽人意， app 体验也非常糟糕，这家公司如今的现状大家都清楚，&lt;strong>当然这里我不是否认这种模式&lt;/strong>，参照观点。因为现在，做好这种模式的公司，体验也还不错，比如华米和华为（华为前期是使用 Android Wear ，现在转变为自己的手表系统），当然还有一家不得不提的大公司三星，搭载 Tizen OS 的智能手表在市场也有一定的份额。除了公司体量以外，我认为&lt;strong>用户基数&lt;/strong>和&lt;strong>对应用开发的扶持&lt;/strong>对体验起到决定性作用。&lt;/p>
+&lt;h2 id="另外一种常见的模式">另外一种常见的模式&lt;/h2>
+&lt;p>现在的 ticwatch ，使用 Wear OS 和搭配自己客户端来使用。首先，这可能是一种战略选择，出门问问获得过谷歌的投资，和谷歌也有合作，你会发现之前大部分的 Andorid Wear ，大部分语言搜索引擎都是出门问问。其次，在 ticwear 时期，推出过兼容 Android Wear 应用的模式，但是大大提高了功耗。为什么使用 Wear OS 呢？&lt;strong>我认为最大的原因是较为强大的生态&lt;/strong>， Wear OS 经过多年强大但深耕，虽然没有 Apple Watch 那样强大的生态，但还是有些积累。但像微信手表端，我记得很清楚早期 ticwear 要在兼容 Android Wear 应用的模式下使用（因为微信手表端是传输协议是 Wear OS 的私有协议），后来推出了一个魔改网页版微信的应用。&lt;/p>
+&lt;p>小米手表也是这种模式，但是语言搜索引擎换成了小爱同学。但你见过 AOSP(Android Open-Source Project) ，却没有 Wear OS Open-Source Project ，这并不是一个开源项目。&lt;strong>意味着在设计界面和功能的同时，你必须遵循它的规范和审核，进行OTA必须通过它的审核等。拥有很大的局限性，当然作为一个爱好者，我也不知道 Wear OS 的商业模式是什么，是否付费。&lt;/strong>&lt;/p>
+&lt;h2 id="观点">观点&lt;/h2>
+&lt;p>由于没有使用过 OPPO 的手表，对产品就不做过多的评价，没有使用就没有发言权。基于这种模式下，我认为由于系统的开发有一定自由度，没有较大局限，但是同时也放弃了生态，需要自己去搭建和完善。从 Wear OS 到独立开发系统的华为，再到由独立系统到 Wear OS 的 Ticwatch ，一直使用独立操作系统的三星、华米，新模式下的小米手表（不含小米手表 color ，此款为独立系统），我们都可以看出，有利也有弊，需要厂商按照产品定位和市场战略去选择。&lt;/p>
+&lt;h2 id="附加智能手表选购指南">附加智能手表选购指南&lt;/h2>
+&lt;p>如果是 iPhone 用户，请选择 Apple Watch ；如果是安卓用户，尽量选择自己手机厂商的手表，这样契合度和使用体验都很好；如果自己厂商没有推出手表，尽量选择采用 Wear OS 的手表。&lt;/p>
+&lt;h2 id="说明">说明&lt;/h2>
+&lt;p>本文中独立操作系统定义为基于 Andorid（AOSP）开发的手表系统和独立开发系统。&lt;/p>
+&lt;p>另外本文之前发表在知乎问题 &lt;a class="link" href="https://www.zhihu.com/question/374883191/answer/1066950095" target="_blank" rel="noopener"
+>如何评价网传OPPO 智能手表没用行业通用的 WearOS ，而使用深度定制版的 Android 内核？&lt;/a> 下。&lt;/p></description></item><item><title>Chrome OS 体验与常用环境</title><link>https://i.vince.pub/p/my-chromebook/</link><pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate><guid>https://i.vince.pub/p/my-chromebook/</guid><description>&lt;img src="https://i.vince.pub/p/my-chromebook/pixelbook.jpg" alt="Featured image of post Chrome OS 体验与常用环境" />&lt;p>Chrome OS 体验与常用环境，或许我们应该对它改观（Pixelbook 体验）。由于文字内容过多，本文为原创，直接给出知乎链接，以后的文章应该会更新到本站。
+&lt;strong>&lt;a class="link" href="https://zhuanlan.zhihu.com/p/105649401" target="_blank" rel="noopener"
+>点击这里查看文章&lt;/a>&lt;/strong>&lt;/p></description></item><item><title>个人免费建站，使用 Cloud Studio 建立个人博客</title><link>https://i.vince.pub/p/cloud-studio-static/</link><pubDate>Fri, 05 Jul 2019 00:00:00 +0000</pubDate><guid>https://i.vince.pub/p/cloud-studio-static/</guid><description>&lt;img src="https://i.vince.pub/p/cloud-studio-static/cloud-studio-static.jpg" alt="Featured image of post 个人免费建站，使用 Cloud Studio 建立个人博客" />&lt;p>由于文字内容过多，不便发布在这里，文章为原创，直接给出知乎链接，以后的文章会更新到本站。（由于 Cloud Studio 已经升级，该方法可能已经失效)
+&lt;strong>&lt;a class="link" href="https://zhuanlan.zhihu.com/p/73998745" target="_blank" rel="noopener"
+>点击这里查看文章&lt;/a>&lt;/strong>&lt;/p></description></item></channel></rss>
