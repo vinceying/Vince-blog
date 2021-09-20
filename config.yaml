@@ -7,8 +7,11 @@ title: Vince
 # Change it to your Disqus shortname before using
 disqusShortname: hugo-theme-stack
 
+# GA Tracking ID
+googleAnalytics:
+
 # Theme i18n support
-# Available values: en, fr, id, ja, ko, pt-br, zh-cn
+# Available values: en, fr, id, ja, ko, pt-br, zh-cn, es, de, nl, it
 DefaultContentLanguage: en
 
 permalinks:
@@ -34,13 +37,16 @@ params:
         emoji: 
         subtitle: five 养成计划
         avatar:
+            enabled: true
             local: true
             src: img/i.png
 
     article:
         math: false
+        toc: true
         edit:
             enabled: true
+        readingTime: false
         license:
             enabled: true
             default: Licensed under CC BY-NC-SA 4.0
@@ -48,11 +54,71 @@ params:
     comments:
         enabled: true
         provider: gitalk
+
+        disqusjs:
+            shortname:
+            apiUrl:
+            apiKey:
+            admin:
+            adminLabel:
+
         utterances:
             repo:
             issueTerm: pathname
             label:
-            theme: preferred-color-scheme
+
+        remark42:
+            host:
+            site:
+            locale:
+
+        vssue:
+            platform:
+            owner:
+            repo:
+            clientId:
+            clientSecret:
+            autoCreateIssue: false
+
+        # Waline client configuration see: https://waline.js.org/en/reference/client.html
+        waline:
+            serverURL:
+            lang:
+            visitor:
+            avatar:
+            emoji:
+                - https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo
+            requiredMeta:
+                - name
+                - email
+                - url
+            placeholder:
+            locale:
+                admin: Admin
+
+        twikoo:
+            envId:
+            region:
+            path:
+            lang:
+
+        giscus:
+            repo:
+            repoID:
+            category:
+            categoryID:
+            mapping:
+            lightTheme:
+            darkTheme:
+            reactionsEnabled: 1
+            emitMetadata: 0
+
+        gitalk:
+            owner: vinceying
+            admin: vinceying
+            repo: comment-vince
+            clientID: 34177ce05983c9f52b9e
+            clientSecret: 72236395c56a2b3fa8200c23f7b728ca910fdf00
 
     widgets:
         enabled:
@@ -62,7 +128,6 @@ params:
 
         archives:
             limit: 5
-            path: archives
 
         tagCloud:
             limit: 10
@@ -84,7 +149,7 @@ params:
     colorScheme:
         # Display toggle
         toggle: true
-        
+
         # Available values: auto, light, dark
         default: auto
 
@@ -94,6 +159,9 @@ params:
         content:
             enabled: true
 
+### Custom menu
+### See https://docs.stack.jimmycai.com/configuration/custom-menu.html
+### To remove about, archive and search page menu item, remove `menu` field from their FrontMatter
 menu:
     main:
         - identifier: home
@@ -101,7 +169,10 @@ menu:
           url: /
           weight: -100
           pre: home
-
+          params:
+              ### For demonstration purpose, the home link will be open in a new tab
+              newTab: true
+        
         - identifier: about
           name: About
           url: /about/
@@ -113,7 +184,7 @@ menu:
           url: /archives/
           weight: -70
           pre: archives
-
+        
         - identifier: search
           name: Search
           url: /search/
@@ -132,5 +203,13 @@ related:
           weight: 200
 
 markup:
+    goldmark:
+        renderer:
+            ## Set to true if you have HTML content inside Markdown
+            unsafe: false
+    tableOfContents:
+        endLevel: 4
+        ordered: true
+        startLevel: 2
     highlight:
-        noClasses: true
+        noClasses: false

@@ -6,6 +6,7 @@ menu:
         pre: messages
         weight: -70
 edit: false
+toc: false
 ---
 # 欢迎留言
 
