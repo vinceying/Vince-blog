@@ -53,7 +53,7 @@ params:
 
     comments:
         enabled: true
-        provider: gitalk
+        provider: utterances
 
         disqusjs:
             shortname:
@@ -63,7 +63,7 @@ params:
             adminLabel:
 
         utterances:
-            repo:
+            repo: vinceying/comment-vince
             issueTerm: pathname
             label:
 
